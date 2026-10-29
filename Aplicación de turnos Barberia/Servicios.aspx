@@ -50,10 +50,13 @@
                     </tr>
                 </tbody>
             </table>--%> 
-            <asp:GridView ID="dgvServicios" runat="server"
-    AutoGenerateColumns="true"
-    CssClass="table table-striped table-bordered table-hover">
-</asp:GridView>
+            <asp:GridView ID="dgvServicios" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover">
+            <columns>
+                <asp:BoundField HeaderText="Servicio" DataField="Nombre" />
+                <asp:BoundField HeaderText="Precio" DataField="Precio" />
+                <asp:BoundField HeaderText="Duración" DataField="DuracionMinutos" />
+            </columns>
+            </asp:GridView>
         </div>
 
         <a href="ReservarTurno.aspx" class="btn btn-dark mt-2">
