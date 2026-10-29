@@ -15,7 +15,7 @@
         <h2 class="mb-3">Nuestros servicios</h2>
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
+           <%-- <table class="table table-striped table-bordered table-hover">
                 <thead class="table-dark">
                     <tr>
                         <th>Nombre del servicio</th>
@@ -49,7 +49,11 @@
                         <td>40 minutos</td>
                     </tr>
                 </tbody>
-            </table>
+            </table>--%> 
+            <asp:GridView ID="dgvServicios" runat="server"
+    AutoGenerateColumns="true"
+    CssClass="table table-striped table-bordered table-hover">
+</asp:GridView>
         </div>
 
         <a href="ReservarTurno.aspx" class="btn btn-dark mt-2">

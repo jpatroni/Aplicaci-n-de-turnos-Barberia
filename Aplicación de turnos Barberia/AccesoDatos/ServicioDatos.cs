@@ -12,7 +12,8 @@ namespace Datos
             using (SqlConnection conexion = new SqlConnection()) // configura dónde y cómo conectarse.
             {
                 conexion.ConnectionString =
-    @"Server=DESKTOP-RJFUDG0\SQLEXPRESS;Database=BarberiaDB;Integrated Security=True;";
+    conexion.ConnectionString =
+    @"Server=.\SQLEXPRESS;Database=BarberiaDB;Integrated Security=True;";
 
                 conexion.Open();
                 using (SqlCommand comando = new SqlCommand())
