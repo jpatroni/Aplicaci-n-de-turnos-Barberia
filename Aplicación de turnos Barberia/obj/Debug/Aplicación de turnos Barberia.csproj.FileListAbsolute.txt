@@ -1,0 +1,59 @@
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\obj\Debug\Aplicación de turnos Barberia.csproj.AssemblyReference.cache
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\obj\Debug\Aplicación de turnos Barberia.csproj.CoreCompileInputs.cache
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\Aplicación de turnos Barberia.dll.config
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\Aplicación de turnos Barberia.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\Aplicación de turnos Barberia.pdb
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csc.exe
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csc.exe.config
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csc.rsp
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csi.exe
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csi.exe.config
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\csi.rsp
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.AppContext.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Collections.Immutable.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Console.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Globalization.Calendars.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.IO.Compression.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.IO.FileSystem.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Net.Http.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Net.Sockets.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.ValueTuple.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Xml.XPath.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\vbc.exe
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\vbc.exe.config
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\vbc.rsp
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\VBCSCompiler.exe
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\roslyn\VBCSCompiler.exe.config
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\obj\Debug\Aplicaci.C0F4B068.Up2Date
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\obj\Debug\Aplicación de turnos Barberia.dll
+C:\Segundo cuatrimestre 2026\Programacion III\Barbería\Aplicación de turnos Barberia\obj\Debug\Aplicación de turnos Barberia.pdb
