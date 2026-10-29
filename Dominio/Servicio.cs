@@ -1,8 +1,18 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using Dominio;
 
-public class Class1
+namespace Dominio
 {
-	public Class1()
-	{
-	}
+    public class Servicio
+    {
+        public int Id { get; set; }
+
+        public string Nombre { get; set; } = string.Empty;
+
+        public decimal Precio { get; set; }
+
+        public int DuracionMinutos { get; set; }
+    }
 }
+
