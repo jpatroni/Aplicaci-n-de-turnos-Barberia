@@ -3,21 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Modelo inicial · Turnos de barbería</title>
+<title>Modelo de dominio · Turnos de barbería</title>
 <style>
 body{font-family:Arial,sans-serif;color:#203040;background:#f3f5f7;margin:0;line-height:1.55}main{max-width:950px;margin:36px auto;padding:36px;background:white;border-radius:12px}h1{line-height:1.2;margin-top:0}h2{font-size:20px;margin-top:30px}.tag{color:#496579;font-size:14px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:12px;border:1px solid #cdd6df;text-align:left;vertical-align:top}th{background:#203c50;color:white}.note{background:#eef4f8;padding:16px;border-left:4px solid #406b86}.relations{font-family:monospace;white-space:pre-wrap;background:#f3f5f7;padding:20px;font-size:16px}@media print{body{background:white}main{margin:0;padding:10px;max-width:none}th{color:#203040;background:#eee}tr{break-inside:avoid}}
 </style>
 </head>
 <body><main>
 <p class="tag">TP integrador · Etapa 1 · Borrador para discutir en equipo</p>
-<h1>Modelo inicial de relaciones<br>Aplicación de turnos de barbería</h1>
+<h1>Modelo de dominio<br>Aplicación de turnos de barbería</h1>
 <p>Este modelo identifica las primeras clases de la aplicación y cómo se relacionan. Como punto de partida, cada turno corresponde a <strong>un cliente, un barbero y un servicio</strong>.</p>
 <h2>1. Clases y datos iniciales</h2>
 <table><thead><tr><th>Clase</th><th>Qué representa</th><th>Datos iniciales</th></tr></thead><tbody>
-<tr><td><strong>Cliente</strong></td><td>La persona que solicita la atención.</td><td>Id, nombre, apellido, teléfono.</td></tr>
-<tr><td><strong>Barbero</strong></td><td>La persona que realiza el trabajo.</td><td>Id, nombre, apellido.</td></tr>
-<tr><td><strong>Servicio</strong></td><td>El trabajo que ofrece la barbería.</td><td>Id, nombre, precio, duración en minutos.</td></tr>
-<tr><td><strong>Turno</strong></td><td>La reserva de una atención.</td><td>Id, fecha y hora, estado. Se relaciona con un cliente, un barbero y un servicio.</td></tr>
+<tr><td><strong>Cliente</strong></td><td>La persona que solicita la atención. Implementada.</td><td>Id: int<br>Nombre: string<br>Apellido: string<br>Telefono: string</td></tr>
+<tr><td><strong>Barbero</strong></td><td>La persona que realiza el trabajo. Implementada.</td><td>Id: int<br>Nombre: string<br>Apellido: string</td></tr>
+<tr><td><strong>Servicio</strong></td><td>El trabajo que ofrece la barbería. Implementada.</td><td>Id: int<br>Nombre: string<br>Precio: decimal<br>DuracionMinutos: int</td></tr>
+<tr><td><strong>Turno</strong></td><td>La reserva de una atención. Implementada como clase; el proceso de reserva está pendiente.</td><td>Id: int<br>FechaHora: DateTime<br>Estado: EstadoTurno<br>Cliente: Cliente<br>Barbero: Barbero<br>Servicio: Servicio</td></tr>
+<tr><td><strong>HorarioTrabajo</strong></td><td>Una franja habitual de atención de un barbero. Propuesta de diseño, sin archivo de clase por ahora.</td><td>Id: int<br>Dia: DayOfWeek<br>HoraInicio: TimeSpan<br>HoraFin: TimeSpan<br>Barbero: Barbero</td></tr>
 </tbody></table>
 <p>El <strong>Id</strong> identifica a cada elemento, incluso cuando dos personas o servicios tienen el mismo nombre.</p>
 <h2>2. Cuadro de relaciones</h2>
@@ -25,13 +26,29 @@ body{font-family:Arial,sans-serif;color:#203040;background:#f3f5f7;margin:0;line
 <tr><td>Cliente → Turno</td><td>Uno a muchos (1:N)</td><td>Un cliente puede tener cero, uno o muchos turnos. Cada turno pertenece a un solo cliente.</td></tr>
 <tr><td>Barbero → Turno</td><td>Uno a muchos (1:N)</td><td>Un barbero puede tener cero, uno o muchos turnos. Cada turno está asignado a un solo barbero.</td></tr>
 <tr><td>Servicio → Turno</td><td>Uno a muchos (1:N)</td><td>Un servicio puede aparecer en cero, uno o muchos turnos. Cada turno incluye un solo servicio.</td></tr>
+<tr><td>Barbero → HorarioTrabajo</td><td>Uno a muchos (1:N), propuesta</td><td>Un barbero puede tener cero, uno o muchas franjas horarias. Cada franja pertenece a un solo barbero.</td></tr>
 </tbody></table>
 <h2>3. Esquema de lectura</h2>
 <div class="relations">CLIENTE  [1] ───────── [0..*] TURNO
 BARBERO  [1] ───────── [0..*] TURNO
-SERVICIO [1] ───────── [0..*] TURNO</div>
+SERVICIO [1] ───────── [0..*] TURNO
+
+BARBERO  [1] ───────── [0..*] HORARIO TRABAJO (propuesto)
+
+TURNO.Estado: EstadoTurno (enum)</div>
 <p><strong>1</strong> significa «exactamente uno». <strong>0..*</strong> significa «ninguno, uno o muchos». Por ejemplo, un cliente recién registrado puede no tener turnos, pero un turno siempre debe tener un cliente.</p>
-<h2>4. Ejemplo</h2>
+<h2>4. EstadoTurno: opciones de estado</h2>
+<p><strong>EstadoTurno es un enum implementado, no una entidad independiente.</strong> Define estas opciones: Pendiente, Confirmado, Cancelado, Atendido y NoAsistio. Cada turno comienza en Pendiente.</p>
+<p>El enum define valores posibles; las reglas de cambio de estado se implementarán con la funcionalidad de reservas.</p>
+<h2>5. Horario de trabajo y reserva</h2>
+<p><strong>HorarioTrabajo</strong> describe cuándo trabaja un barbero de forma habitual, por ejemplo, los martes de 09:00 a 13:00 y de 16:00 a 20:00. Son dos franjas, representadas por dos objetos.</p>
+<p><strong>Turno</strong> representa una reserva concreta, con fecha, hora, cliente, barbero y servicio. No se propone una relación directa entre Turno y HorarioTrabajo: al reservar se consultará la disponibilidad del barbero.</p>
+<p>DayOfWeek es el enum de .NET para los días de la semana. TimeSpan representa una duración; en este diseño se usa como tiempo desde medianoche para indicar una hora del día.</p>
+<h2>6. Ejemplo</h2>
 <p class="note"><strong>Turno 25:</strong> Juan Pérez (cliente) se atiende con Martín (barbero) para un corte de pelo (servicio), el 03/11/2026 a las 15:00.</p>
-<p>Este es un borrador inicial del modelo de dominio. Más adelante se incorporarán los horarios de trabajo, las cuentas de usuario y las demás relaciones necesarias. Las relaciones uno a muchos no habilitan turnos superpuestos: esa regla deberá validarse al implementar las reservas.</p>
+<h2>7. Reglas previstas y alcance</h2>
+<p>Las reservas deberán respetar la jornada del barbero y la duración del servicio. No se admitirán turnos pasados ni superpuestos para el mismo barbero o cliente. Las cancelaciones conservarán el registro. Estas reglas están identificadas para el diseño; su implementación corresponde a la funcionalidad de turnos.</p>
+<p class="note"><strong>Este documento sigue siendo un modelo en revisión.</strong> Cliente, Barbero, Servicio, Turno y EstadoTurno están en el código. HorarioTrabajo se incorpora únicamente al diseño. No se crea una clase nueva con esta actualización.</p>
+<p><strong>Alcance acordado:</strong> todos los barberos realizan los mismos servicios disponibles. Por ahora no se necesita una asociación directa entre Barbero y Servicio; cada Turno identifica ambos.</p>
+<p>El acceso de usuarios y perfiles queda pendiente para las etapas posteriores. Este borrador no representa todavía toda la arquitectura final.</p>
 </main></body></html>

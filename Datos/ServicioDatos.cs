@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dominio;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Datos
 {
@@ -11,8 +12,11 @@ namespace Datos
             List<Servicio> servicios = new List<Servicio>();
             using(SqlConnection conexion = new SqlConnection()) // configura dónde y cómo conectarse.
             {
-                conexion.ConnectionString =
-    @"Server=DESKTOP-RJFUDG0\SQLEXPRESS;Database=BarberiaDB;Integrated Security=True;";
+                ConnectionStringSettings configuracion = ConfigurationManager.ConnectionStrings["BarberiaDB"];
+                if (configuracion == null)
+                    throw new ConfigurationErrorsException("Falta la conexión BarberiaDB en Web.config.");
+
+                conexion.ConnectionString = configuracion.ConnectionString;
 
                 conexion.Open();
                 using (SqlCommand comando = new SqlCommand())

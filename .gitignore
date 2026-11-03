@@ -6,3 +6,4 @@
 # Resultados de compilacion de .NET
 **/bin/
 **/obj/
+packages/
