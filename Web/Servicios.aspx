@@ -1,10 +1,11 @@
 ﻿<%@ Page Title="Servicios" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Servicios.aspx.cs" Inherits="Aplicación_de_turnos_Barberia.Servicios" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <div class="container mt-4">
+    <div class="container mt-4">
 
-        <h1 class="display-4">Inicio</h1>
+        <h1 class="mb-1">Inicio</h1>
 
         <p class="lead">
             Bienvenido al sistema de gestión de turnos de la barbería.
@@ -15,52 +16,23 @@
         <h2 class="mb-3">Nuestros servicios</h2>
 
         <div class="table-responsive">
-           <%-- <table class="table table-striped table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nombre del servicio</th>
-                        <th>Precio</th>
-                        <th>Duración</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td>Corte de pelo</td>
-                        <td>$12.000</td>
-                        <td>30 minutos</td>
-                    </tr>
 
-                    <tr>
-                        <td>Corte y barba</td>
-                        <td>$15.000</td>
-                        <td>45 minutos</td>
-                    </tr>
-
-                    <tr>
-                        <td>Arreglo de barba</td>
-                        <td>$6.000</td>
-                        <td>20 minutos</td>
-                    </tr>
-
-                    <tr>
-                        <td>Corte con degradado</td>
-                        <td>$15.000</td>
-                        <td>40 minutos</td>
-                    </tr>
-                </tbody>
-            </table>--%> 
-            <asp:GridView ID="dgvServicios" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover">
-            <columns>
-                <asp:BoundField HeaderText="Servicio" DataField="Nombre" />
-                <asp:BoundField HeaderText="Precio" DataField="Precio" />
-                <asp:BoundField HeaderText="Duración" DataField="DuracionMinutos" />
-            </columns>
+            <asp:GridView ID="dgvServicios" runat="server" AutoGenerateColumns="false" CssClass="table table-striped-columns table-bordered table-hover align-middle" Width="70%">
+                <Columns>
+                    <asp:BoundField HeaderText="Servicio" DataField="Nombre" />
+                    <asp:BoundField
+                        HeaderText="Precio" DataField="Precio" DataFormatString="{0:C2}"
+                        ItemStyle-HorizontalAlign="Right"
+                        HeaderStyle-CssClass="text-end" />
+                    <asp:BoundField HeaderText="Duración" DataField="DuracionMinutos" DataFormatString="{0} min"
+                        ItemStyle-HorizontalAlign="Right"
+                        HeaderStyle-CssClass="text-end" />
+                </Columns>
             </asp:GridView>
         </div>
 
-        <a href="ReservarTurno.aspx" class="btn btn-dark mt-2">
-            Reservar turno
+        <a href="ReservarTurno.aspx" class="btn btn-dark mt-2">Reservar turno
         </a>
 
     </div>
