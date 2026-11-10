@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClienteDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroDatos.cs" />
     <Compile Include="ServicioDatos.cs" />
