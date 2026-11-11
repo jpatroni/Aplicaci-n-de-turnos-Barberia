@@ -128,6 +128,7 @@
     <Compile Include="ReservarTurno.aspx.designer.cs">
       <DependentUpon>ReservarTurno.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Seguridad\Contrasenas.cs" />
     <Compile Include="Servicios.aspx.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

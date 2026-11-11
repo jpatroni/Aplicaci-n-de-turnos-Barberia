@@ -23,7 +23,54 @@
              <asp:CommandField ShowSelectButton="True" SelectText="Editar" />
          </Columns>
          </asp:GridView>
+         <asp:Panel ID="pnlEdision" runat="server" Visible="false" CssClass="mt-4">
+             <h2>  Editar Cliente</h2>
+             <div class="mb-3">
+                 <asp:Label runat="server" 
+                     AssociatedControlID="txtEditarNombre" Text="Nombre"
+                     CssClass="from-label" />
 
+                 <asp:TextBox ID="txtEditarNombre" runat ="server" MaxLength="100" 
+                     CssClass="from-control" />
+
+
+
+             </div>
+            
+             <div class="mb-3">
+                 <asp:Label runat="server" AssociatedControlID=" txtEditarApellido"
+                     Text="Apellido" CssClass="from-label" />
+                   <asp:TextBox ID="txtEditarApellido" runat="server" MaxLength="100" CssClass="from-control" />
+                 </div>
+
+             <div class="mb-3">
+                 <asp:Label runat="server" AssociatedControlID="txtEditarTelefono"
+                     Text="Telefono" CssClass="from-label" />
+                 <asp:TextBox ID="txtEditarTelefono" runat="server"
+                     TextMode="Phone" MaxLength="30" CssClass="from-control" />
+
+                </div>
+
+             <div class ="mb-3">
+                 <asp:Label runat="server" AssociatedControlID="txtEditarEmail"
+                     Text="Email de contacto" CssClass="from-label" />
+                 <asp:TextBox ID="txtEditarEmail" runat="server"
+                     TextMode="Email" MaxLength="254" CssClass="from-control" />
+
+             </div>
+
+             <div class="mt-3">
+                 <asp:Button ID="btnGuardarEdicion" runat ="server"
+                     Text="Guardar" CssClass="btn btn-primary" />
+                 
+                 <asp:Button ID="btnCancelarEdicion" runat="server" 
+                     Text="Cancelar" CssClass="btn btn-secondary"  CausesValidation="false"/>
+
+
+
+             </div>
+
+         </asp:Panel>
 
  </div>
 </asp:Content>

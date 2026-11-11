@@ -45,6 +45,31 @@ namespace Aplicación_de_turnos_Barberia
             }
 
             int clienteId = (int)dgvClientes.SelectedDataKey.Value;
+
+
+            // Por ahora usamos una ficha ficticia para probar el panel.
+            MostrarEdicion(new Cliente
+            {
+                Id = clienteId,
+                Nombre = "Ana",
+                Apellido = "Ejemplo",
+                Telefono = "0000-0000",
+                Email = "ana@example.com"
+            });
+
+        }
+
+
+
+
+        // Llena los campos con los datos del cliente y muestra el panel.
+        private void MostrarEdicion(Cliente cliente)
+        {
+            txtEditarNombre.Text = cliente.Nombre;
+            txtEditarApellido.Text = cliente.Apellido;
+            txtEditarTelefono.Text = cliente.Telefono;
+            txtEditarEmail.Text = cliente.Email;
+            pnlEdision.Visible = true;
         }
 
         // revisa la sesion antes de la grilla
@@ -56,7 +81,7 @@ namespace Aplicación_de_turnos_Barberia
                 Context.ApplicationInstance.CompleteRequest();
                 return false;
             }
-            if (PuedeAccederRecepcion(perfil))
+            if (!PuedeAccederRecepcion(perfil))
             {
                 throw new System.Web.HttpException(
                     403, "No tiene permisos para para entrar a Recepción.");
