@@ -4,8 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="row">
-        <div class="col= col-6">
+    <div class="row" style="display: flex; justify-content: center;">
+
+        <div class="col-4">
             <h1>Registrate</h1>
 
             <div class="form-field">
@@ -23,7 +24,7 @@
                         ErrorMessage="El nombre es obligatorio."
                         CssClass="text-danger"
                         Display="Dynamic">
-        </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>
                 </div>
             </div>
 
@@ -42,7 +43,7 @@
                         ErrorMessage="El apellido es obligatorio."
                         CssClass="text-danger"
                         Display="Dynamic">
-        </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>
                 </div>
             </div>
 
@@ -63,7 +64,7 @@
                         ErrorMessage="El teléfono es obligatorio."
                         CssClass="text-danger"
                         Display="Dynamic">
-        </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>
                 </div>
             </div>
 
@@ -100,20 +101,43 @@
                 </div>
             </div>
 
+            <div class="form-field">
+                <label for="<%= txtPassword.ClientID %>" class="form-label">Contraseña</label>
+
+                <asp:TextBox
+                    runat="server"
+                    ID="txtPassword"
+                    TextMode="Password"
+                    CssClass="form-control"
+                    placeholder="Ingrese su contraseña">
+    </asp:TextBox>
+
+                <div class="form-text">
+                    <asp:RequiredFieldValidator
+                        runat="server"
+                        ID="rfvPassword"
+                        ControlToValidate="txtPassword"
+                        ErrorMessage="La contraseña es obligatoria."
+                        CssClass="text-danger"
+                        Display="Dynamic">
+        </asp:RequiredFieldValidator>
+                </div>
+            </div>
+
 
             <div class="d-flex gap-2 justify-content-start">
                 <asp:Button
                     ID="btnRegistrar"
                     runat="server"
                     Text="Registrar"
-                    CssClass="btn-solid theme-primary"
+                    CssClass="btn btn-primary"
                     OnClick="btnRegistrar_Click" />
 
                 <asp:Button
                     ID="btnCancelar"
                     runat="server"
                     Text="Cancelar"
-                    CssClass="btn-solid theme-secondary"
+                    CssClass="btn btn-secondary"
                     CausesValidation="false"
                     OnClick="btnCancelar_Click" />
 
