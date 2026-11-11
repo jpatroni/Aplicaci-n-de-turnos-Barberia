@@ -84,6 +84,7 @@
     <Content Include="Ingresar.aspx" />
     <Content Include="Recepcion.aspx" />
     <Content Include="RegistrateForm.aspx" />
+    <Content Include="RegistroExitoso.aspx" />
     <Content Include="ReservarTurno.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -120,6 +121,13 @@
     </Compile>
     <Compile Include="RegistrateForm.aspx.designer.cs">
       <DependentUpon>RegistrateForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroExitoso.aspx.cs">
+      <DependentUpon>RegistroExitoso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistroExitoso.aspx.designer.cs">
+      <DependentUpon>RegistroExitoso.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReservarTurno.aspx.cs">
       <DependentUpon>ReservarTurno.aspx</DependentUpon>
