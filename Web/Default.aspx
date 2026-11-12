@@ -79,115 +79,52 @@
                     Encontrá el estilo que va con vos.
                 </p>
             </div>
-
-            <div class="row g-4">
+                       
                  <!-- Esta en html por el momento pero tiene que salir de la BD -->
-                <!-- PROFESIONAL 1 -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <article class="tarjeta-barbero">
+                
+<div class="row g-4">
 
-                        <img
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8s8tJtvAxRfjctVmwhnSd4Sk10L7yYPG1Et1z_24KvBo9knvt87YVhcfJdRU2V9BTz-5BshO5WizELk9MiiPYqqeGI_-kSYZOXbBX3jERSY8LBZZWp7QtANqrAzlFJHGU_iBjJU7sCZ-ln7cZmQErAhHMDUyrEAU7N_axIrT0g20MWccIT4hiSOMaWjmXFXb0YJ4VTdcyOJouxX8hCy0aX8KPJ4DNOcKxPos8DSQY"
-                            alt="Retrato de Mateo Silva"
-                            loading="lazy" />
+    <asp:Repeater ID="rptBarberos" runat="server">
+        <ItemTemplate>
 
-                        <h3>Mateo Silva</h3>
+            <div class="col-12 col-md-6 col-lg-3">
 
-                        <p class="especialidad">
-                            Degradados y texturados
-                        </p>
+                <article class="tarjeta-barbero">
 
-                        <p>
-                            Cortes actuales con transiciones prolijas
-                            y atención a cada detalle.
-                        </p>
+                    <img
+                        src='<%# ResolveUrl(Eval("FotoUrl").ToString()) %>'
+                        alt="Foto del barbero"
+                        loading="lazy"
+                        onerror="this.src='https://placehold.co/400x500?text=Sin+foto';" />
 
-                        <a href="ReservarTurno.aspx" class="btn btn-borde">
-                            Reservar turno
-                        </a>
+                    <h3>
+                        <%# Eval("Nombre") %>
+                        <%# Eval("Apellido") %>
+                    </h3>
 
-                    </article>
-                </div>
+                    <p class="especialidad">
+                        <%# Eval("Especialidad") %>
+                    </p>
 
-                <!-- PROFESIONAL 2 -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <article class="tarjeta-barbero">
+                    <p>
+                        <%# Eval("Descripcion") %>
+                    </p>
 
-                        <img
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtaOMX9KpIjKZ_ReuGpZ84q0VwyPleDwaR972UGscIxlZ1CwyHqncVBJUDmRoc7TyPKzE6_Ul6lDCJc4U19SHRgGoVRWvsmvW16c7Rjkeob2QzKNyxEdglJAFV4GcYMxrFNPdXsoAJqu2omU81deAMbAKixUXztMOeIyIO3pgA-W-ZBu5jLGWKuXkQmsIkG-C2HvpaBgM-pL9DCSVdsgkMjS9gy-wH-FMt2zqIM-tD"
-                            alt="Retrato de Lucas Benítez"
-                            loading="lazy" />
+                    <a href='<%# "ReservarTurno.aspx?idBarbero=" + Eval("Id") %>'
+                       class="btn btn-borde">
+                        Reservar turno
+                    </a>
 
-                        <h3>Lucas Benítez</h3>
+                </article>
 
-                        <p class="especialidad">
-                            Cortes clásicos
-                        </p>
+            </div>
 
-                        <p>
-                            Estilos tradicionales con terminaciones
-                            cuidadas y un toque personal.
-                        </p>
+        </ItemTemplate>
+    </asp:Repeater>
 
-                        <a href="ReservarTurno.aspx" class="btn btn-borde">
-                            Reservar turno
-                        </a>
+</div>
 
-                    </article>
-                </div>
-
-                <!-- PROFESIONAL 3 -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <article class="tarjeta-barbero">
-
-                        <img
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDhypWy5JhTIclWVnpMjXhXdUP1lUkCztXLEfk9iOA-VNOKS02aV4QazfunRpMF_R89EVvJ9k7lcbj2e-x5Jhgzwjlez10XBvsybmgJ3MyY2_Nn24PYXL3_dLIk0c7KCzbfoIX-eXd5qMrZQp4OZJb38MnB8EhHWNsNy_4DeYtCNruxlPk5ydcDtt1sEVolrGElxmTQd38zT7TQj4aRD1BAswDA-JD2eLXFLO9lHjR"
-                            alt="Retrato de Santiago Rossi"
-                            loading="lazy" />
-
-                        <h3>Santiago Rossi</h3>
-
-                        <p class="especialidad">
-                            Barba y perfilado
-                        </p>
-
-                        <p>
-                            Diseño y cuidado de barba para acompañar
-                            tus facciones y completar tu estilo.
-                        </p>
-
-                        <a href="ReservarTurno.aspx" class="btn btn-borde">
-                            Reservar turno
-                        </a>
-
-                    </article>
-                </div>
-
-                <!-- PROFESIONAL 4 -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <article class="tarjeta-barbero">
-
-                        <img
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFjHKj1IdagMln5Ymkz4No9VxgffT8JaT1o9n0_NgiuTJ7mbqC69fy5pm4J0-yW2LJNW2XN1o0KdWBFv-04fDabwuT-53iDri4YYJces4dpv1Q2YnEGQthLciLc623fj1XV_FpchdEzduENOkGFKtYqc3gvUhfGk6xw5Lb_ScS4AZzY4PhNIGcIq3uZDfcA6P2oEJ80Bm_IvaXHokstoKs8mlFpaA8yiloVLdHeKok"
-                            alt="Retrato de Joaquín Vega"
-                            loading="lazy" />
-
-                        <h3>Joaquín Vega</h3>
-
-                        <p class="especialidad">
-                            Corte personalizado
-                        </p>
-
-                        <p>
-                            Asesoramiento para encontrar un corte
-                            cómodo que se adapte a tu día a día.
-                        </p>
-
-                        <a href="ReservarTurno.aspx" class="btn btn-borde">
-                            Reservar turno
-                        </a>
-
-                    </article>
+                
                 </div>
 
             </div>

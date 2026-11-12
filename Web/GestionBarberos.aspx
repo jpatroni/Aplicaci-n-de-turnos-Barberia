@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="Gestión de Barberos" Language="C#"
+﻿<%@ Page Title="Gestión de Barberos" Language="C#"
     MasterPageFile="~/Site.Master"
     AutoEventWireup="true"
     CodeBehind="GestionBarberos.aspx.cs"
@@ -15,7 +14,7 @@
     <div class="container mt-4">
 
         <h2>Gestión de Barberos</h2>
-                
+
         <asp:Label ID="lblMensaje" runat="server"
             EnableViewState="false" />
 
@@ -53,7 +52,7 @@
                                     Width="80px"
                                     Height="80px"
                                     CssClass="rounded-circle"
-                                    Style="object-fit:cover;" />
+                                    Style="object-fit: cover;" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -161,6 +160,14 @@
                             OnClick="btnBaja_Click"
                             OnClientClick="return confirm('¿Dar de baja este barbero?');"
                             Visible="false" />
+
+                        <asp:Button
+                            ID="btnReactivar"
+                            runat="server"
+                            Text="Dar de alta"
+                            CssClass="btn btn-success"
+                            OnClick="btnReactivar_Click"
+                            Visible="true" />
 
                         <asp:Button ID="btnVolver"
                             runat="server"

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using Datos;
@@ -46,6 +45,7 @@ namespace Aplicación_de_turnos_Barberia
             btnAlta.Visible = true;
             btnModificacion.Visible = false;
             btnBaja.Visible = false;
+            btnReactivar.Visible = false;
 
             pnlListado.Visible = false;
             pnlFormulario.Visible = true;
@@ -80,7 +80,7 @@ namespace Aplicación_de_turnos_Barberia
             btnAlta.Visible = false;
             btnModificacion.Visible = true;
             btnBaja.Visible = barbero.Activo;
-
+            btnReactivar.Visible = !barbero.Activo;
             pnlListado.Visible = false;
             pnlFormulario.Visible = true;
         }
@@ -176,7 +176,29 @@ namespace Aplicación_de_turnos_Barberia
                     "El barbero no existe o ya está inactivo.");
             }
         }
+        // ALTA LÓGICA: reactiva un barbero dado de baja
+        protected void btnReactivar_Click(object sender, EventArgs e)
+        {
+            int id;
 
+            if (!int.TryParse(hfIdBarbero.Value, out id))
+            {
+                MostrarMensaje("Primero seleccioná un barbero.");
+                return;
+            }
+
+            BarberoDatos datos = new BarberoDatos();
+
+            if (datos.Reactivar(id))
+            {
+                MostrarListado();
+                MostrarMensaje("Barbero dado de alta correctamente.");
+            }
+            else
+            {
+                MostrarMensaje("El barbero no existe o ya está activo.");
+            }
+        }
         // Comprueba si otro barbero esta duplicado nombre +apellido
         private bool ExisteDuplicado(
             string nombre, string apellido, int idActual)

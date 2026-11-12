@@ -194,5 +194,23 @@ namespace Datos
                 Activo = (bool)lector["Activo"]
             };
         }
+
+        public bool Reactivar(int id)
+        {
+            const string sql = @"
+        UPDATE dbo.Barberos
+        SET Activo = 1
+        WHERE Id = @Id AND Activo = 0";
+
+            using (var conexion = new SqlConnection(ObtenerCadenaConexion()))
+            using (var comando = new SqlCommand(sql, conexion))
+            {
+                comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                conexion.Open();
+
+                return comando.ExecuteNonQuery() == 1;
+            }
+        }
     }
 }

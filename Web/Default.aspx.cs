@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Datos;
 
 namespace Aplicación_de_turnos_Barberia
 {
@@ -11,7 +8,23 @@ namespace Aplicación_de_turnos_Barberia
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                CargarBarberos();
+            }
+        }
 
+        private void CargarBarberos()
+        {
+            BarberoDatos datos = new BarberoDatos();
+
+            var lista = datos.Listar();
+
+            rptBarberos.DataSource = lista
+                .Where(b => b.Activo)
+                .ToList();
+
+            rptBarberos.DataBind();
         }
     }
 }
