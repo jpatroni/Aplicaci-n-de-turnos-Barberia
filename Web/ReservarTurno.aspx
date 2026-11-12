@@ -13,9 +13,8 @@
                 Text="Servicio"
                  CssClass="form-label" />
             <asp:DropDownList ID="ddlServicio" runat="server"    CssClass="form-select">
-                 <asp:ListItem Value="">Seleccioná un servicio</asp:ListItem>
-            <asp:ListItem Value="1">Corte de pelo</asp:ListItem>
-            <asp:ListItem Value="2">Arreglo de barba</asp:ListItem>
+                 
+            
                 </asp:DropDownList>
 
 
@@ -27,16 +26,12 @@
         Text="Barbero"
         CssClass="form-label" />
 
-              <asp:DropDownList
+        <asp:DropDownList
         ID="ddlBarbero"
         runat="server"
         CssClass="form-select">
 
-
-                    <asp:ListItem Value="">Seleccioná un barbero</asp:ListItem>
-        <asp:ListItem Value="1">Martín</asp:ListItem>
-        <asp:ListItem Value="2">Lucas</asp:ListItem>
-    </asp:DropDownList>
+        </asp:DropDownList>
 
             <div class="mb-3">
     <asp:Label
