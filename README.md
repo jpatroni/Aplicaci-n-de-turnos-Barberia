@@ -107,6 +107,8 @@ Cierren la solución anterior y abran **Barberia.sln** desde la raíz. Deben apa
 
 En Management Studio, conéctense a su servidor, abran **BaseDeDatos/BarberiaDB.sql** y ejecuten el archivo completo.
 
+Para probar el hito 2 en una base local, ejecuten después `02_ClientesYUsuarios.sql`, `BarberosTabla.sql`, `03_ActualizarServicios_Activo.sql` y `04_ActualizarClientes_Activo.sql`, en ese orden. El último agrega el estado activo a las fichas existentes. Las pantallas de Administración requieren una cuenta con ese perfil en la base local.
+
 Crea BarberiaDB y la tabla Servicios si no existen. Carga ejemplos solamente si la tabla está vacía y no borra registros. La base no se descarga con Git: hay que prepararla en cada computadora.
 
 ### 4. Configurar la conexión

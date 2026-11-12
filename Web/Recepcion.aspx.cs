@@ -102,6 +102,9 @@ namespace Aplicación_de_turnos_Barberia
             txtEditarApellido.Text = cliente.Apellido;
             txtEditarTelefono.Text = cliente.Telefono;
             txtEditarEmail.Text = cliente.Email;
+            btnCambiarEstado.Visible = EsAdministrador();
+            btnCambiarEstado.Text = cliente.Activo ? "Desactivar cliente" : "Reactivar cliente";
+            ViewState["ClienteActivo"] = cliente.Activo;
             pnlEdision.Visible = true;
         }
 
@@ -145,10 +148,67 @@ namespace Aplicación_de_turnos_Barberia
                 return;
             }
 
+            CerrarEdicion();
+            CargarClientes(txtBuscarCliente.Text);
+            lblMensajeRecepcion.Text = "Cambios guardados.";
+        }
+
+        // Cierra la edición sin guardar.
+        protected void btnCancelarEdicion_Click(object sender, EventArgs e)
+        {
+            if (VerificarAcceso())
+            {
+                CerrarEdicion();
+            }
+        }
+
+        // Solo Administración puede cambiar el estado de la ficha.
+        protected void btnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            if (!EsAdministrador())
+            {
+                throw new HttpException(403, "Solo Administración puede cambiar el estado.");
+            }
+
+            if (!pnlEdision.Visible || dgvClientes.SelectedDataKey == null
+                || !(ViewState["ClienteActivo"] is bool activo))
+            {
+                lblMensajeRecepcion.Text = "Primero seleccioná un cliente.";
+                return;
+            }
+
+            int id = (int)dgvClientes.SelectedDataKey.Value;
+            try
+            {
+                if (!new ClienteDatos().CambiarEstado(id, !activo))
+                {
+                    lblMensajeRecepcion.Text = "No se encontró la ficha del cliente.";
+                    return;
+                }
+            }
+            catch (SqlException)
+            {
+                lblMensajeRecepcion.Text = "No pudimos cambiar el estado del cliente.";
+                return;
+            }
+
+            CerrarEdicion();
+            CargarClientes(txtBuscarCliente.Text);
+            lblMensajeRecepcion.Text = activo ? "Cliente desactivado." : "Cliente reactivado.";
+        }
+
+        private void CerrarEdicion()
+        {
             pnlEdision.Visible = false;
             dgvClientes.SelectedIndex = -1;
-            CargarClientes();
+            ViewState.Remove("ClienteActivo");
             lblMensajeRecepcion.Text = string.Empty;
+        }
+
+        private bool EsAdministrador()
+        {
+            return Session["PerfilUsuario"] is PerfilUsuario perfil
+                && perfil == PerfilUsuario.Administrador;
         }
 
         // Arma la ficha con lo que la recepcionista escribió en el panel.

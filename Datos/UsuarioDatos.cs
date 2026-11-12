@@ -10,9 +10,11 @@ namespace Datos
         public Usuario BuscarPorEmail(string email)
         {
             const string sql = @"
-                SELECT Id, EmailAcceso, Perfil, ClienteId, PasswordHash
-                FROM dbo.Usuarios
-                WHERE EmailAcceso = @Email;";
+                SELECT u.Id, u.EmailAcceso, u.Perfil, u.ClienteId, u.PasswordHash
+                FROM dbo.Usuarios AS u
+                LEFT JOIN dbo.Clientes AS c ON c.Id = u.ClienteId
+                WHERE u.EmailAcceso = @Email
+                  AND (u.ClienteId IS NULL OR c.Activo = 1);";
 
             using (var conexion = ConexionDatos.CrearConexion())
             using (var comando = new SqlCommand(sql, conexion))

@@ -6,7 +6,7 @@ using Dominio;
 
 namespace Aplicación_de_turnos_Barberia
 {
-    public partial class GestionBarberos : Page
+    public partial class GestionBarberos : Seguridad.PaginaAdministracion
     {
         protected void Page_Load(object sender, EventArgs e)
         {

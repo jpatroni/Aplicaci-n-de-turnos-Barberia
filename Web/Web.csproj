@@ -80,6 +80,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Administracion.aspx" />
     <Content Include="GestionBarberos.aspx" />
     <Content Include="GestionServicios.aspx" />
     <Content Include="Global.asax" />
@@ -153,6 +154,9 @@
       <DependentUpon>ReservarTurno.aspx</DependentUpon>
     </Compile>
     <Compile Include="Seguridad\Contrasenas.cs" />
+    <Compile Include="Seguridad\PaginaAdministracion.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Servicios.aspx.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

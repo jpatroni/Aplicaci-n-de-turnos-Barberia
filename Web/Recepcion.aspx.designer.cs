@@ -49,6 +49,7 @@ namespace Aplicación_de_turnos_Barberia
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMensajeRecepcion;
+        protected global::System.Web.UI.WebControls.Button btnCambiarEstado;
 
         /// <summary>
         /// Control pnlEdision.

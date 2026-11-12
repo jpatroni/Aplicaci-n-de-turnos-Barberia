@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Datos.Infraestructura;
 using Dominio;
 
 namespace Datos
@@ -14,7 +14,7 @@ namespace Datos
             List<Cliente> clientes = new List<Cliente>();
 
             const string sql = @"
-                SELECT Id, Nombre, Apellido, Telefono, Email
+                SELECT Id, Nombre, Apellido, Telefono, Email, Activo
                 FROM dbo.Clientes
                 WHERE @Texto = N''
                    OR CHARINDEX(@Texto, Nombre) > 0
@@ -24,7 +24,7 @@ namespace Datos
 
             // Busco la conexión en Web.config usando el método compartido.
             // Así me ahorro escribir la búsqueda de la configuración cada vez.
-            using (var conexion = new SqlConnection(ObtenerCadenaConexion()))
+            using (var conexion = ConexionDatos.CrearConexion())
             {
                 conexion.Open();
 
@@ -56,11 +56,11 @@ namespace Datos
         public Cliente BuscarPorId(int id)
         {
             const string sql = @"
-                SELECT Id, Nombre, Apellido, Telefono, Email
+                SELECT Id, Nombre, Apellido, Telefono, Email, Activo
                 FROM dbo.Clientes
                 WHERE Id = @Id;";
 
-            using (var conexion = new SqlConnection(ObtenerCadenaConexion()))
+            using (var conexion = ConexionDatos.CrearConexion())
             {
                 conexion.Open();
 
@@ -94,7 +94,7 @@ namespace Datos
                     Email = @Email
                 WHERE Id = @Id;";
 
-            using (var conexion = new SqlConnection(ObtenerCadenaConexion()))
+            using (var conexion = ConexionDatos.CrearConexion())
             using (var comando = new SqlCommand(sql, conexion))
             {
                 comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 100).Value = cliente.Nombre;
@@ -110,18 +110,18 @@ namespace Datos
             }
         }
 
-        // Lee la cadena de conexión configurada para la barbería.
-        private string ObtenerCadenaConexion()
+        // Cambia el estado de la ficha sin borrarla ni modificar la cuenta.
+        public bool CambiarEstado(int id, bool activo)
         {
-            var configuracion = ConfigurationManager.ConnectionStrings["BarberiaDB"];
-
-            if (configuracion == null)
+            const string sql = "UPDATE dbo.Clientes SET Activo = @Activo WHERE Id = @Id;";
+            using (var conexion = ConexionDatos.CrearConexion())
+            using (var comando = new SqlCommand(sql, conexion))
             {
-                throw new ConfigurationErrorsException(
-                    "Falta configurar la conexión BarberiaDB.");
+                comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@Activo", SqlDbType.Bit).Value = activo;
+                conexion.Open();
+                return comando.ExecuteNonQuery() == 1;
             }
-
-            return configuracion.ConnectionString;
         }
 
         // Lee los datos de la fila actual y los guarda en un objeto Cliente.
@@ -133,7 +133,8 @@ namespace Datos
                 Nombre = (string)lector["Nombre"],
                 Apellido = (string)lector["Apellido"],
                 Telefono = (string)lector["Telefono"],
-                Email = (string)lector["Email"]
+                Email = (string)lector["Email"],
+                Activo = (bool)lector["Activo"]
             };
         }
     }

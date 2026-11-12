@@ -33,6 +33,7 @@
              <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
              <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
              <asp:BoundField DataField="Email" HeaderText="Email" />
+             <asp:CheckBoxField DataField="Activo" HeaderText="Activo" />
              <asp:CommandField ShowSelectButton="True" SelectText="Editar" />
          </Columns>
          </asp:GridView>
@@ -79,7 +80,11 @@
                      OnClick="btnGuardarEdicion_Click"/>
                  
                  <asp:Button ID="btnCancelarEdicion" runat="server" 
-                     Text="Cancelar" CssClass="btn btn-secondary"  CausesValidation="false"/>
+                     Text="Cancelar" CssClass="btn btn-secondary" CausesValidation="false"
+                     OnClick="btnCancelarEdicion_Click" />
+                 <asp:Button ID="btnCambiarEstado" runat="server" Visible="false"
+                     CssClass="btn btn-outline-danger" CausesValidation="false"
+                     OnClick="btnCambiarEstado_Click" />
 
 
 

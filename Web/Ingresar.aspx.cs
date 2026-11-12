@@ -41,6 +41,10 @@ namespace Aplicación_de_turnos_Barberia
             {
                 destino = "~/Recepcion.aspx";
             }
+            else if (usuario.Perfil == PerfilUsuario.Administrador)
+            {
+                destino = "~/Administracion.aspx";
+            }
 
             Response.Redirect(destino, false);
             Context.ApplicationInstance.CompleteRequest();

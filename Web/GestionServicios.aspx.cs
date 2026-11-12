@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Aplicación_de_turnos_Barberia
 {
-    public partial class GestionServicios : System.Web.UI.Page
+    public partial class GestionServicios : Seguridad.PaginaAdministracion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
