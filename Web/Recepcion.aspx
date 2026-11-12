@@ -11,6 +11,19 @@
      <p>Listado de clientes</p>
 
        <%-- Más adelante, esta grilla recibirá la lista de ClienteDatos. --%>
+         <div class="mb-3">
+    <asp:Label runat="server" AssociatedControlID="txtBuscarCliente"
+        Text="Buscar por nombre, apellido o teléfono" CssClass="form-label" />
+
+    <div class="input-group">
+        <asp:TextBox ID="txtBuscarCliente" runat="server"
+            MaxLength="100" CssClass="form-control" />
+
+        <asp:Button ID="btnBuscarCliente" runat="server"
+            Text="Buscar" CssClass="btn btn-primary"
+            CausesValidation="false" OnClick="btnBuscarCliente_Click" />
+    </div>
+</div>
 
      <asp:GridView ID="dgvClientes" runat="server" AutoGenerateColumns="false"
          CssClass="table table-striped"
@@ -23,6 +36,7 @@
              <asp:CommandField ShowSelectButton="True" SelectText="Editar" />
          </Columns>
          </asp:GridView>
+         <asp:Label ID="lblMensajeRecepcion" runat="server" CssClass="text-danger" />
          <asp:Panel ID="pnlEdision" runat="server" Visible="false" CssClass="mt-4">
              <h2>  Editar Cliente</h2>
              <div class="mb-3">
@@ -38,7 +52,7 @@
              </div>
             
              <div class="mb-3">
-                 <asp:Label runat="server" AssociatedControlID=" txtEditarApellido"
+                 <asp:Label runat="server" AssociatedControlID="txtEditarApellido"
                      Text="Apellido" CssClass="from-label" />
                    <asp:TextBox ID="txtEditarApellido" runat="server" MaxLength="100" CssClass="from-control" />
                  </div>
@@ -61,7 +75,8 @@
 
              <div class="mt-3">
                  <asp:Button ID="btnGuardarEdicion" runat ="server"
-                     Text="Guardar" CssClass="btn btn-primary" />
+                     Text="Guardar" CssClass="btn btn-primary"
+                     OnClick="btnGuardarEdicion_Click"/>
                  
                  <asp:Button ID="btnCancelarEdicion" runat="server" 
                      Text="Cancelar" CssClass="btn btn-secondary"  CausesValidation="false"/>

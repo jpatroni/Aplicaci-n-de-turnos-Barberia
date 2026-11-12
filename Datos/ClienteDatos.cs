@@ -8,7 +8,7 @@ namespace Datos
 {
     public class ClienteDatos
     {
-        public List<Cliente> Listar()
+        public List<Cliente> Buscar(string texto)
         {
             // Acá guardo en memoria los clientes que leo de SQL Server.
             List<Cliente> clientes = new List<Cliente>();
@@ -16,6 +16,10 @@ namespace Datos
             const string sql = @"
                 SELECT Id, Nombre, Apellido, Telefono, Email
                 FROM dbo.Clientes
+                WHERE @Texto = N''
+                   OR CHARINDEX(@Texto, Nombre) > 0
+                   OR CHARINDEX(@Texto, Apellido) > 0
+                   OR CHARINDEX(@Texto, Telefono) > 0
                 ORDER BY Apellido, Nombre, Id;";
 
             // Busco la conexión en Web.config usando el método compartido.
@@ -25,17 +29,27 @@ namespace Datos
                 conexion.Open();
 
                 using (var comando = new SqlCommand(sql, conexion))
-                using (var lector = comando.ExecuteReader())
                 {
-                    while (lector.Read())
+                    comando.Parameters.Add("@Texto", SqlDbType.NVarChar, 100).Value =
+                        (texto ?? string.Empty).Trim();
+
+                    using (var lector = comando.ExecuteReader())
                     {
-                        Cliente cliente = LeerCliente(lector);
-                        clientes.Add(cliente);
+                        while (lector.Read())
+                        {
+                            Cliente cliente = LeerCliente(lector);
+                            clientes.Add(cliente);
+                        }
                     }
                 }
             }
 
             return clientes;
+        }
+
+        public List<Cliente> Listar()
+        {
+            return Buscar(string.Empty);
         }
 
         // Busca una ficha de cliente por su identificador.

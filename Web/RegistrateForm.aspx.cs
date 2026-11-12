@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Aplicación_de_turnos_Barberia.Seguridad;
 
 namespace Aplicación_de_turnos_Barberia
 {
@@ -28,8 +29,8 @@ namespace Aplicación_de_turnos_Barberia
                 cliente.Telefono = txtTelefono.Text.Trim();
                 cliente.Email = txtEmail.Text.Trim();
 
-                // Generar el hash de la contraseña. Esta línea es provisoria antes de tener la clase Seguridad para el PasswordHash
-                string passwordHash = txtPassword.Text;
+                //// Prepara el hash antes de guardar la cuenta.
+                string passwordHash = Contrasenas.GenerarHash(txtPassword.Text);
 
                 // Registrar ficha y cuenta de usuario.
                 RegistroDatos registro = new RegistroDatos();

@@ -52,7 +52,9 @@
                         ID="btnIngresar"
                         runat="server"
                         Text="Ingresar"
-                        CssClass="btn btn-primary" />
+                        CssClass="btn btn-primary" OnClick="btnIngresar_Click" />
+
+                    <asp:Label ID="lblErrorIngreso" runat="server" CssClass="text-danger" />
 
                     <asp:Button
                         ID="btnCancelar"
