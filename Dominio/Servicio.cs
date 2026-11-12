@@ -13,6 +13,8 @@ namespace Dominio
         public decimal Precio { get; set; }
 
         public int DuracionMinutos { get; set; }
+
+        public bool Activo { get; set; }
     }
 }
 

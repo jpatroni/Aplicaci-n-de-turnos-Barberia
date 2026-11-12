@@ -81,6 +81,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="GestionBarberos.aspx" />
+    <Content Include="GestionServicios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Ingresar.aspx" />
     <Content Include="Recepcion.aspx" />
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="GestionBarberos.aspx.designer.cs">
       <DependentUpon>GestionBarberos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionServicios.aspx.cs">
+      <DependentUpon>GestionServicios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionServicios.aspx.designer.cs">
+      <DependentUpon>GestionServicios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
