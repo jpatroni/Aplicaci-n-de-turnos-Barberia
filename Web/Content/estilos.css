@@ -1,0 +1,199 @@
+﻿/* Colores compartidos */
+:root {
+    --barberia-negro: #1c1b1b;
+    --barberia-crema: #faf9f6;
+    --barberia-dorado: #e9c176;
+    --barberia-texto: #272727;
+}
+
+/* Estilos generales */
+body {
+    margin: 0;
+    background-color: var(--barberia-crema);
+    color: var(--barberia-texto);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Menú */
+.navbar {
+    background-color: var(--barberia-negro) !important;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.navbar-brand {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.navbar .nav-link {
+    color: var(--barberia-crema);
+}
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link:focus {
+        color: var(--barberia-dorado);
+    }
+
+/* Botones propios */
+.btn-dorado {
+    background-color: var(--barberia-dorado);
+    border: 1px solid var(--barberia-dorado);
+    color: var(--barberia-negro);
+    padding: 12px 24px;
+    font-weight: bold;
+}
+
+    .btn-dorado:hover,
+    .btn-dorado:focus {
+        background-color: #fed488;
+        border-color: #fed488;
+        color: var(--barberia-negro);
+    }
+
+.btn-borde {
+    background-color: transparent;
+    border: 1px solid var(--barberia-dorado);
+    color: var(--barberia-crema);
+    padding: 12px 24px;
+}
+
+    .btn-borde:hover,
+    .btn-borde:focus {
+        background-color: var(--barberia-dorado);
+        color: var(--barberia-negro);
+    }
+
+/* Portada */
+.portada {
+    background-color: var(--barberia-negro);
+    color: var(--barberia-crema);
+    padding: 100px 0;
+    text-align: center;
+}
+
+    .portada h1 {
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        line-height: 1.15;
+        margin-bottom: 24px;
+    }
+
+        .portada h1 span {
+            color: var(--barberia-dorado);
+            font-style: italic;
+        }
+
+    .portada p {
+        max-width: 650px;
+        margin: 0 auto 32px;
+        color: #d1ceca;
+        font-size: 1.1rem;
+    }
+
+/* Secciones */
+.seccion {
+    padding: 72px 0;
+}
+
+.seccion-titulo {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 16px;
+}
+
+.etiqueta {
+    color: #775a19;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Equipo de profesionales */
+.equipo {
+    background-color: var(--barberia-negro);
+    color: var(--barberia-crema);
+}
+
+    .equipo .etiqueta {
+        color: var(--barberia-dorado);
+    }
+
+.equipo-descripcion {
+    color: #d1ceca;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.tarjeta-barbero {
+    background-color: #292828;
+    border: 1px solid #49443c;
+    border-radius: 16px;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+    .tarjeta-barbero img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tarjeta-barbero h3 {
+        font-size: 1.5rem;
+    }
+
+    .tarjeta-barbero p {
+        color: #d1ceca;
+        font-size: 0.95rem;
+        flex-grow: 1;
+    }
+
+    .tarjeta-barbero .especialidad {
+        color: var(--barberia-dorado);
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+/* Ajustes para celular */
+@media (max-width: 575.98px) {
+    .portada {
+        padding: 64px 0;
+    }
+
+    .seccion {
+        padding: 48px 0;
+    }
+
+    .portada .btn {
+        width: 100%;
+    }
+}
+
+.navbar .boton-registro {
+    background-color: #e9c176;
+    color: #1c1b1b;
+    border-radius: 5px;
+    padding: 9px 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+    .navbar .boton-registro:hover {
+        background-color: #fed488;
+        color: #1c1b1b;
+    }
