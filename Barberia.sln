@@ -8,6 +8,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{2D558AA8-C090-4D98-9D6B-36377ED1CEED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaseDeDatos", "BaseDeDatos", "{4A5C026D-1084-489A-BC82-DC66E1ABC80E}"
+	ProjectSection(SolutionItems) = preProject
+		BaseDeDatos\02_ClientesYUsuarios.sql = BaseDeDatos\02_ClientesYUsuarios.sql
+		BaseDeDatos\03_ActualizarServicios_Activo.sql = BaseDeDatos\03_ActualizarServicios_Activo.sql
+		BaseDeDatos\04_ActualizarClientes_Activo.sql = BaseDeDatos\04_ActualizarClientes_Activo.sql
+		BaseDeDatos\BarberiaDB.sql = BaseDeDatos\BarberiaDB.sql
+		BaseDeDatos\BarberosTabla.sql = BaseDeDatos\BarberosTabla.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
