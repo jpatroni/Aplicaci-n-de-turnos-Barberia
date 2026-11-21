@@ -18,7 +18,8 @@
         <div class="table-responsive">
 
 
-            <asp:GridView ID="dgvServicios" runat="server" AutoGenerateColumns="false" CssClass="table table-striped-columns table-bordered table-hover align-middle" Width="70%">
+            <asp:GridView ID="dgvServicios" runat="server" AutoGenerateColumns="false" OnRowCommand="dgvServicios_RowCommand"
+                CssClass="table table-striped-columns table-bordered table-hover align-middle" Width="70%">
                 <Columns>
                     <asp:BoundField HeaderText="Servicio" DataField="Nombre" />
                     <asp:BoundField
@@ -28,6 +29,17 @@
                     <asp:BoundField HeaderText="Duración" DataField="DuracionMinutos" DataFormatString="{0} min"
                         ItemStyle-HorizontalAlign="Right"
                         HeaderStyle-CssClass="text-end" />
+                    <asp:TemplateField HeaderText="Acción">
+                <ItemTemplate>
+                    <asp:Button
+                        ID="btnReservar"
+                        runat="server"
+                        Text="Seleccionar"
+                        CssClass="btn btn-dark btn-sm"
+                        CommandName="SeleccionarServicio"
+                        CommandArgument='<%# Eval("Id") %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>

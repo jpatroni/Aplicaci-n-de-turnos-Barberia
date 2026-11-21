@@ -18,5 +18,27 @@ namespace Aplicación_de_turnos_Barberia
                 dgvServicios.DataBind();
             }
         }
+
+        // Evento que se dispara cuando se hace clic en el botón "Seleccionar" de un servicio en el GridView.
+        protected void dgvServicios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "SeleccionarServicio")
+            {
+                int idServicio;
+
+                if (!int.TryParse(e.CommandArgument.ToString(), out idServicio))
+                {
+                    return;
+                }
+
+                // Guardamos el ID del servicio seleccionado.
+                Session["IdServicio"] = idServicio;
+
+                // Vamos a la página de reserva.
+                Response.Redirect("~/ReservarTurno.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
+        }
+
     }
 }

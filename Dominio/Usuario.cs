@@ -12,7 +12,7 @@ namespace Dominio
         public PerfilUsuario Perfil { get; set; }
         public int? ClienteId { get; set; }
         public string PasswordHash { get; set; } = string.Empty;
-
         public string EmailAcceso { get; set; } = string.Empty;
+        public Cliente? Cliente { get; set; }
     }
 }

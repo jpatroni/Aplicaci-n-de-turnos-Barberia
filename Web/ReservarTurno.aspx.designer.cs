@@ -33,13 +33,13 @@ namespace Aplicación_de_turnos_Barberia
         protected global::System.Web.UI.WebControls.DropDownList ddlServicio;
 
         /// <summary>
-        /// Control Barbero.
+        /// Control lBarbero.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Barbero;
+        protected global::System.Web.UI.WebControls.Label lBarbero;
 
         /// <summary>
         /// Control ddlBarbero.
@@ -85,5 +85,14 @@ namespace Aplicación_de_turnos_Barberia
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlHorario;
+
+        /// <summary>
+        /// Control btnConfirmarTurno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnConfirmarTurno;
     }
 }
