@@ -16,7 +16,7 @@ namespace Dominio
         public Servicio Servicio { get; set; } = null!;
 
         public Barbero Barbero { get; set; } = null!;
-        public EstadoTurno Estado { get; set; } = EstadoTurno.Pendiente; // Cada turno tiene un estado, elegido de la lista EstadoTurno, y comienza en Pendiente
+        public EstadoTurno Estado { get; set; } = EstadoTurno.Confirmado; // Cada turno tiene un estado, elegido de la lista EstadoTurno, y comienza en Pendiente
 
 
 
