@@ -27,7 +27,9 @@
 
 
 
-    <div class="input-group mt-3">
+  <asp:Panel runat="server"
+    CssClass="input-group mt-3"
+    DefaultButton="btnBuscarTurno">
         <asp:TextBox ID="txtBuscarTurno" runat="server"
             MaxLength="100"
             CssClass="from-control"
@@ -39,8 +41,7 @@
             CssClass="btn btn-primary"
             OnClick="btnBuscarTurno_Click" />
 
-
-    </div>
+</asp:Panel>
 
 
     <asp:GridView ID="dgvTurnos" runat="server"
@@ -58,6 +59,7 @@
         <asp:BoundField DataField="Estado" HeaderText="Estado" />
 
            <asp:CommandField
+               HeaderText="Reprogramar"
                ShowSelectButton="true"
                SelectText="Seleccionar" />
 
@@ -65,6 +67,11 @@
 
 
     </asp:GridView>
+
+
+    <asp:Label ID="lblMensajeAgenda" runat="server"
+    CssClass="text-danger d-block mt-3" />
+
     <asp:Label ID="lblTurnoSeleccionado" runat="server"
     CssClass="d-block mt-3" />
 
@@ -91,9 +98,16 @@
         </asp:DropDownList>
 
         <asp:Button ID="btnRevisarReprogramacion" runat="server"
-            Text="Revisar Cambio"
+            Text="Confirmar reprogramación"
             CssClass ="btn btn-primary"
             OnClick="btnRevisarReprogramacion_Click" />
+
+
+        <asp:Button ID="btnCancelarEdicion" runat="server"
+            Text="Cancelar Edicion"
+            CssClass="btn btn-secondary"
+            CausesValidation="false"
+            OnClick="btnCancelarEdicion_Click"/>
 
         <asp:Label ID="lblMensajeReprogramacion" runat="server"
             CssClass="d-block mt-3" />

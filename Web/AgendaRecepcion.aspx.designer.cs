@@ -69,6 +69,15 @@ namespace Aplicación_de_turnos_Barberia
         protected global::System.Web.UI.WebControls.GridView dgvTurnos;
 
         /// <summary>
+        /// Control lblMensajeAgenda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeAgenda;
+
+        /// <summary>
         /// Control lblTurnoSeleccionado.
         /// </summary>
         /// <remarks>
@@ -112,6 +121,15 @@ namespace Aplicación_de_turnos_Barberia
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRevisarReprogramacion;
+
+        /// <summary>
+        /// Control btnCancelarEdicion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelarEdicion;
 
         /// <summary>
         /// Control lblMensajeReprogramacion.

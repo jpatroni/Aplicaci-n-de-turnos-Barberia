@@ -8,6 +8,14 @@
 
      <div class="container mt-4">
      <h1>Recepcion</h1>
+
+         <div class="mb-3">
+             <asp:HyperLink runat="server" 
+                 NavigateUrl ="~/AgendaRecepcion.aspx"
+                 Text="Ver agenda de turnos"
+                 CssClass="btn btn-primary" />
+         </div>
+
      <p>Listado de clientes</p>
 
        <%-- Más adelante, esta grilla recibirá la lista de ClienteDatos. --%>
