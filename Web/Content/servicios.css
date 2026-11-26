@@ -1,0 +1,57 @@
+﻿/* Distribución de las tarjetas. */
+.servicios-lista {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+/* Tarjeta de un servicio. */
+.servicio-tarjeta {
+    background-color: #ffffff;
+    border: 1px solid #d3c4b3;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+    .servicio-tarjeta h2 {
+        font-size: 28px;
+        margin: 16px 0;
+    }
+
+/* Foto del servicio, recortada sin deformar la imagen. */
+.servicio-foto {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.servicio-duracion {
+    color: #705b3d;
+    font-size: 14px;
+}
+
+.servicio-precio {
+    color: #272727;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Dos columnas en pantallas medianas. */
+@media (max-width: 991px) {
+    .servicios-lista {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Una columna en celulares. */
+@media (max-width: 575px) {
+    .servicios-lista {
+        grid-template-columns: 1fr;
+    }
+}

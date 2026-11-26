@@ -1,0 +1,60 @@
+/* Estilos de Administración de Servicios; no afectan al catálogo público. */
+.gestion-servicios {
+    padding-top: 40px;
+    padding-bottom: 48px;
+}
+
+.gestion-servicios-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.gestion-servicios h1 {
+    margin-bottom: 8px;
+}
+
+.gestion-servicios h2 {
+    font-size: 26px;
+    margin-bottom: 16px;
+}
+
+.gestion-servicios-formulario {
+    background-color: white;
+    border: 1px solid #d3c4b3;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.gestion-servicios .form-text {
+    display: block;
+    color: #655849;
+    margin-top: 6px;
+}
+
+.gestion-servicios input[readonly] {
+    background-color: #f0ece5;
+}
+
+.gestion-servicios .table a {
+    color: #674300;
+    text-underline-offset: 3px;
+}
+
+.gestion-servicios .table a:focus-visible {
+    outline: 2px solid #674300;
+    outline-offset: 3px;
+}
+
+.gestion-servicios .table a.servicio-eliminar {
+    color: #a02622;
+}
+
+@media (max-width: 575px) {
+    .gestion-servicios-formulario {
+        padding: 16px;
+    }
+}
