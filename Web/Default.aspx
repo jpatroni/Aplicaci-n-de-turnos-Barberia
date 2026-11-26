@@ -92,10 +92,10 @@
                 <article class="tarjeta-barbero">
 
                     <img
-                        src='<%# ResolveUrl(Eval("FotoUrl").ToString()) %>'
+                        src='<%# ObtenerFotoLocal(Eval("FotoUrl")) %>'
                         alt="Foto del barbero"
                         loading="lazy"
-                        onerror="this.src='https://placehold.co/400x500?text=Sin+foto';" />
+                        onerror="this.onerror=null;this.src='/Imagenes/Barberos/sin-foto.png';" />
 
                     <h3>
                         <%# Eval("Nombre") %>
@@ -123,12 +123,10 @@
     </asp:Repeater>
 
 </div>
-
-                
+     
                 </div>
-
-            </div>
-        </div>
+                    
+     
     </section>
 
 </asp:Content>

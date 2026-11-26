@@ -90,6 +90,15 @@
     <Content Include="GestionBarberos.aspx" />
     <Content Include="GestionServicios.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\Barberos\Franco_Martinez.jpg" />
+    <Content Include="Imagenes\Barberos\Joaquin_Vega.jpg" />
+    <Content Include="Imagenes\Barberos\Lucas_Benitez.jpg" />
+    <Content Include="Imagenes\Barberos\Mateo_Silva.jpg" />
+    <Content Include="Imagenes\Barberos\Nicolas_Herrera.jpg" />
+    <Content Include="Imagenes\Barberos\Santiago_Rossi.jpg" />
+    <Content Include="Imagenes\Barberos\sin-foto.png" />
+    <Content Include="Imagenes\Barberos\Thiago_Fernandez.jpg" />
+    <Content Include="Imagenes\Barberos\Valentin_Castro.jpg" />
     <Content Include="Ingresar.aspx" />
     <Content Include="Recepcion.aspx" />
     <Content Include="RegistrateForm.aspx" />

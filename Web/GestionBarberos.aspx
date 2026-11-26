@@ -44,17 +44,20 @@
                         <asp:BoundField DataField="Especialidad"
                             HeaderText="Especialidad" />
 
+
                         <asp:TemplateField HeaderText="Foto">
                             <ItemTemplate>
-                                <asp:Image ID="imgBarbero"
+                                <asp:Image
+                                    ID="imgBarbero"
                                     runat="server"
-                                    ImageUrl='<%# Eval("FotoUrl") %>'
+                                    ImageUrl='<%# ObtenerFotoListado(Eval("FotoUrl")) %>'
                                     Width="80px"
                                     Height="80px"
                                     CssClass="rounded-circle"
                                     Style="object-fit: cover;" />
                             </ItemTemplate>
                         </asp:TemplateField>
+
 
                         <asp:CheckBoxField DataField="Activo"
                             HeaderText="Activo"
@@ -120,12 +123,34 @@
                                 CssClass="form-control" />
                         </div>
 
+
                         <div class="col-md-6">
-                            <label class="form-label">URL de foto</label>
-                            <asp:TextBox ID="txtFotoUrl"
+                            <label class="form-label">Foto del barbero</label>
+
+                            <asp:FileUpload
+                                ID="fuFoto"
                                 runat="server"
-                                CssClass="form-control" />
+                                CssClass="form-control"
+                                accept=".jpg,.jpeg,.png" />
+
+                            <asp:HiddenField
+                                ID="hfFotoActual"
+                                runat="server" />
+
+                            <small class="text-muted">Seleccioná una imagen JPG o PNG (máximo 3 MB).
+                            </small>
+
+                            <div class="mt-2">
+                                <asp:Image
+                                    ID="imgFotoActual"
+                                    runat="server"
+                                    Width="120px"
+                                    Height="120px"
+                                    CssClass="rounded"
+                                    AlternateText="Foto actual" />
+                            </div>
                         </div>
+
 
                         <div class="col-12">
                             <label class="form-label">Descripción</label>

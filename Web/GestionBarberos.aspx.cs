@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.UI;
 using Datos;
 using Dominio;
+using System.IO;
+using System.Web;
 
 namespace Aplicación_de_turnos_Barberia
 {
@@ -73,7 +75,25 @@ namespace Aplicación_de_turnos_Barberia
             txtApellido.Text = barbero.Apellido;
             txtEspecialidad.Text = barbero.Especialidad;
             txtDescripcion.Text = barbero.Descripcion;
-            txtFotoUrl.Text = barbero.FotoUrl;
+            string rutaFoto = barbero.FotoUrl ?? "";
+
+            if (rutaFoto.StartsWith("~/Imagenes/Barberos/",
+                StringComparison.OrdinalIgnoreCase)
+                && System.IO.File.Exists(Server.MapPath(rutaFoto)))
+            {
+                hfFotoActual.Value = rutaFoto;
+                imgFotoActual.ImageUrl = ResolveUrl(rutaFoto);
+            }
+            else
+            {
+                hfFotoActual.Value = "";
+                imgFotoActual.ImageUrl =
+                    "~/Imagenes/Barberos/sin-foto.png";
+            }
+
+            imgFotoActual.ImageUrl = string.IsNullOrWhiteSpace(barbero.FotoUrl)
+                ? "~/Imagenes/Barberos/sin-foto.png"
+                : barbero.FotoUrl;
 
             lblTituloFormulario.Text = "Modificación de Barbero";
 
@@ -232,7 +252,7 @@ namespace Aplicación_de_turnos_Barberia
                 Apellido = txtApellido.Text.Trim(),
                 Especialidad = txtEspecialidad.Text.Trim(),
                 Descripcion = txtDescripcion.Text.Trim(),
-                FotoUrl = txtFotoUrl.Text.Trim()
+                FotoUrl = GuardarFoto(hfFotoActual.Value)
             };
         }
 
@@ -257,7 +277,9 @@ namespace Aplicación_de_turnos_Barberia
             txtApellido.Text = "";
             txtEspecialidad.Text = "";
             txtDescripcion.Text = "";
-            txtFotoUrl.Text = "";
+            hfFotoActual.Value = "";
+            imgFotoActual.ImageUrl = ResolveUrl("~/Imagenes/Barberos/sin-foto.png");
+            imgFotoActual.Visible = true;
             dgvBarberos.SelectedIndex = -1;
         }
 
@@ -274,5 +296,87 @@ namespace Aplicación_de_turnos_Barberia
             lblMensaje.CssClass =
                 "d-block alert alert-info mb-3";
         }
+
+        private string GuardarFoto(string fotoActual)
+        {
+            if (!fuFoto.HasFile)
+                return fotoActual;
+
+            const int maxBytes = 3 * 1024 * 1024;
+
+            if (fuFoto.PostedFile.ContentLength > maxBytes ||
+                fuFoto.PostedFile.ContentLength == 0)
+                throw new Exception("La foto debe pesar menos de 3 MB.");
+
+            string extension = Path.GetExtension(fuFoto.FileName)
+                .ToLowerInvariant();
+
+            if (extension != ".jpg" &&
+                extension != ".jpeg" &&
+                extension != ".png")
+                throw new Exception("Solo se permiten imágenes JPG o PNG.");
+
+            byte[] firma = new byte[8];
+
+            using (Stream archivo = fuFoto.PostedFile.InputStream)
+            {
+                if (archivo.Read(firma, 0, firma.Length) < firma.Length)
+                    throw new Exception("El archivo no es una imagen válida.");
+            }
+
+            bool jpeg = firma[0] == 0xFF &&
+                        firma[1] == 0xD8 &&
+                        firma[2] == 0xFF;
+
+            bool png = firma[0] == 0x89 &&
+                       firma[1] == 0x50 &&
+                       firma[2] == 0x4E &&
+                       firma[3] == 0x47 &&
+                       firma[4] == 0x0D &&
+                       firma[5] == 0x0A &&
+                       firma[6] == 0x1A &&
+                       firma[7] == 0x0A;
+
+            if ((!jpeg && !png) ||
+                (extension == ".png" && !png) ||
+                (extension != ".png" && !jpeg))
+                throw new Exception("El archivo no es una imagen JPG o PNG válida.");
+
+            string carpeta = Server.MapPath("~/Imagenes/Barberos/");
+            Directory.CreateDirectory(carpeta);
+
+            string nombre = Guid.NewGuid().ToString("N") + extension;
+            string ruta = Path.Combine(carpeta, nombre);
+
+            fuFoto.SaveAs(ruta);
+
+            return "~/Imagenes/Barberos/" + nombre;
+        }
+
+        protected string ObtenerFotoListado(object fotoUrl)
+        {
+            string ruta = Convert.ToString(fotoUrl);
+            string predeterminada = "~/Imagenes/Barberos/sin-foto.png";
+
+            if (string.IsNullOrWhiteSpace(ruta))
+                return ResolveUrl(predeterminada);
+
+            if (ruta.StartsWith("~/Imagenes/Barberos/",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    if (File.Exists(Server.MapPath(ruta)))
+                        return ResolveUrl(ruta);
+                }
+                catch
+                {
+                    return ResolveUrl(predeterminada);
+                }
+            }
+
+            return ResolveUrl(predeterminada);
+        }
+
     }
 }

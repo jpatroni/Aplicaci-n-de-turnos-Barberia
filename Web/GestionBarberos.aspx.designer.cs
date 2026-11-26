@@ -105,13 +105,31 @@ namespace Aplicación_de_turnos_Barberia
         protected global::System.Web.UI.WebControls.TextBox txtEspecialidad;
 
         /// <summary>
-        /// Control txtFotoUrl.
+        /// Control fuFoto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFotoUrl;
+        protected global::System.Web.UI.WebControls.FileUpload fuFoto;
+
+        /// <summary>
+        /// Control hfFotoActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFotoActual;
+
+        /// <summary>
+        /// Control imgFotoActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgFotoActual;
 
         /// <summary>
         /// Control txtDescripcion.
