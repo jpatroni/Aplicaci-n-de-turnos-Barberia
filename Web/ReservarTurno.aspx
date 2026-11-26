@@ -101,9 +101,11 @@
                 </a>
             </div>
 
-            <p class="text-muted mt-2">
-                La confirmación de reservas estará disponible próximamente.
-            </p>
+            <asp:Label
+                ID="lblMensaje"
+                runat="server"
+                CssClass="text-muted mt-2">
+</asp:Label>
         </div>
 
     </div>

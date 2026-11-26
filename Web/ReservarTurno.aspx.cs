@@ -1,4 +1,5 @@
 ﻿using Datos;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,11 +88,48 @@ namespace Aplicación_de_turnos_Barberia
                 new ListItem("Seleccioná un servicio", ""));
         }
 
-           
+
         protected void btnConfirmarTurno_Click(object sender, EventArgs e)
         {
+            // Verificar que haya un cliente en sesión.
+            if (Session["Cliente"] == null)
+            {
+                Response.Redirect("~/Ingresar.aspx");
+                return;
+            }
 
+            Cliente cliente = (Cliente)Session["Cliente"];
 
+            // Obtener los datos seleccionados.
+            int barberoId = Convert.ToInt32(ddlBarbero.SelectedValue);
+            int servicioId = Convert.ToInt32(ddlServicio.SelectedValue);
+
+            DateTime fecha = DateTime.Parse(txtFecha.Text);
+            TimeSpan horario = TimeSpan.Parse(ddlHorario.SelectedValue);
+
+            DateTime fechaHora = fecha.Date.Add(horario);
+
+            // Guardar el turno.
+            TurnoDatos datos = new TurnoDatos();
+
+            try
+            {
+                bool guardado = datos.GuardarTurno(
+                    cliente.Id,
+                    barberoId,
+                    servicioId,
+                    fechaHora
+                );
+
+                if (guardado)
+                    lblMensaje.Text = "¡Turno reservado correctamente!";
+                else
+                    lblMensaje.Text = "No se pudo reservar el turno. Verifique la fecha, el horario y la disponibilidad del barbero.";
+            }
+            catch (Exception)
+            {
+                lblMensaje.Text = "Ocurrió un error al intentar reservar el turno.";
+            }
         }
     }
 }
