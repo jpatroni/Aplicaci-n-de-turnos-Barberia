@@ -21,7 +21,16 @@ namespace Aplicación_de_turnos_Barberia
             {
                 return "~/Imagenes/corte-pelo.jpg";
             }
-
+            if (string.Equals(nombre.Trim(), "Arreglo de barba",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                return "~/Imagenes/arreglo-barba.jpg";
+            }
+            if (string.Equals(nombre.Trim(), "Corte y barba",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                return "~/Imagenes/corte-barba.jpg";
+            }
             return string.Empty;
         }
 
