@@ -83,6 +83,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Administracion.aspx" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\reservarTurno.css" />
     <Content Include="Content\servicios.css" />
     <Content Include="Content\gestion-servicios.css" />
     <Content Include="Imagenes\arreglo-barba.jpg" />

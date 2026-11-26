@@ -1,62 +1,58 @@
 ﻿<%@ Page Title="Reservar Turno" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReservarTurno.aspx.cs" Inherits="Aplicación_de_turnos_Barberia.ReservarTurno" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <link href="Content/reservarTurno.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container mt-4">
-        <h1>Reservar turno   </h1>
+    <div class="reservar-pagina">
 
-        <p>Selecciona tu barbero y turno de preferencia </p>
+        <div class="reservar-formulario">
 
-        <div class="mb-3">
-            <asp:Label ID="lblServicio" runat="server" AssociatedControlID="ddlServicio"
-                Text="Servicio"
-                CssClass="form-label" />
-            <asp:DropDownList ID="ddlServicio" runat="server" CssClass="form-select">
-            </asp:DropDownList>
+            <h1>Reservar turno</h1>
 
+            <p class="reservar-descripcion">
+                Seleccioná tu servicio, barbero y horario de preferencia.
+            </p>
 
+            <div class="reservar-campo">
+                <asp:Label ID="lblServicio" runat="server"
+                    AssociatedControlID="ddlServicio"
+                    Text="Servicio" />
 
-        </div>
+                <asp:DropDownList ID="ddlServicio" runat="server"
+                    CssClass="form-control">
+                </asp:DropDownList>
+            </div>
 
-        <div class="mb-3">
-            <asp:Label ID="lBarbero" runat="server" AssociatedControlID="ddlBarbero"
-                Text="Barbero"
-                CssClass="form-label" />
+            <div class="reservar-campo">
+                <asp:Label ID="lBarbero" runat="server"
+                    AssociatedControlID="ddlBarbero"
+                    Text="Barbero" />
 
-            <asp:DropDownList
-                ID="ddlBarbero"
-                runat="server"
-                CssClass="form-select">
-            </asp:DropDownList>
+                <asp:DropDownList ID="ddlBarbero" runat="server"
+                    CssClass="form-control">
+                </asp:DropDownList>
+            </div>
 
-            <div class="mb-3">
-                <asp:Label
-                    ID="lblFecha"
-                    runat="server"
+            <div class="reservar-campo">
+                <asp:Label ID="lblFecha" runat="server"
                     AssociatedControlID="txtFecha"
-                    Text="Fecha"
-                    CssClass="form-label" />
+                    Text="Fecha" />
 
-                <asp:TextBox
-                    ID="txtFecha"
-                    runat="server"
+                <asp:TextBox ID="txtFecha" runat="server"
                     TextMode="Date"
                     CssClass="form-control" />
             </div>
-            <div class="mb-3">
-                <asp:Label
-                    ID="lblHorario"
-                    runat="server"
-                    AssociatedControlID="ddlHorario"
-                    Text="Horario"
-                    CssClass="form-label" />
 
-                <asp:DropDownList
-                    ID="ddlHorario"
-                    runat="server"
-                    CssClass="form-select">
+            <div class="reservar-campo">
+                <asp:Label ID="lblHorario" runat="server"
+                    AssociatedControlID="ddlHorario"
+                    Text="Horario" />
+
+                <asp:DropDownList ID="ddlHorario" runat="server"
+                    CssClass="form-control">
 
                     <asp:ListItem Value="">Seleccioná un horario</asp:ListItem>
                     <asp:ListItem Value="09:00">09:00</asp:ListItem>
@@ -83,32 +79,29 @@
                     <asp:ListItem Value="19:30">19:30</asp:ListItem>
                     <asp:ListItem Value="20:00">20:00</asp:ListItem>
                     <asp:ListItem Value="20:30">20:30</asp:ListItem>
+
                 </asp:DropDownList>
             </div>
 
-            <%-- Botón de confirmar turno --%>
-            <div class="mt-4">
-                <div class="mt-4">
-                    <asp:Button
-                        runat="server"
-                        ID="btnConfirmarTurno"
-                        Text="Confirmar turno"
-                        CssClass="btn btn-dark"
-                        OnClick="btnConfirmarTurno_Click" />
-                </div>
+            <asp:Label ID="lblMensaje" runat="server"
+                CssClass="reservar-mensaje">
+            </asp:Label>
 
-                <a href="Servicios.aspx" class="btn btn-outline-dark">Volver a servicios
+            <div class="reservar-botones">
+
+                <asp:Button ID="btnConfirmarTurno" runat="server"
+                    Text="Confirmar turno"
+                    CssClass="btn btn-confirmar"
+                    OnClick="btnConfirmarTurno_Click" />
+
+                <a href="Servicios.aspx" class="btn btn-volver">
+                    Volver a servicios
                 </a>
+
             </div>
 
-            <asp:Label
-                ID="lblMensaje"
-                runat="server"
-                CssClass="text-muted mt-2">
-</asp:Label>
         </div>
 
     </div>
-
 
 </asp:Content>

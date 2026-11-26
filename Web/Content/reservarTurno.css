@@ -1,0 +1,138 @@
+﻿/* Apariencia general de la página. */
+.reservar-pagina {
+    background-color: #17130e;
+    color: #ebe1d8;
+    min-height: 85vh;
+    padding: 64px 24px;
+}
+
+/* Formulario principal. */
+.reservar-formulario {
+    background-color: #231f19;
+    border: 1px solid #514638;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+    /* Título. */
+    .reservar-formulario h1 {
+        color: #ffcf8b;
+        font-family: Georgia, serif;
+        font-size: 38px;
+        margin-bottom: 12px;
+    }
+
+/* Texto introductorio. */
+.reservar-descripcion {
+    color: #c8bbae;
+    margin-bottom: 32px;
+}
+
+/* Espaciado entre campos. */
+.reservar-campo {
+    margin-bottom: 22px;
+}
+
+    /* Etiquetas de los campos. */
+    .reservar-campo label {
+        display: block;
+        color: #ffcf8b;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+/* Campos de selección y fecha. */
+.reservar-formulario .form-control {
+    background-color: #17130e;
+    color: #ebe1d8;
+    border: 1px solid #817567;
+    padding: 12px 14px;
+    border-radius: 6px;
+    width: 100%;
+}
+
+    /* Cuando se selecciona un campo. */
+    .reservar-formulario .form-control:focus {
+        background-color: #17130e;
+        color: #ebe1d8;
+        border-color: #e5b268;
+        box-shadow: 0 0 0 3px rgb(229 178 104 / 20%);
+    }
+
+/* Opciones de los desplegables. */
+.reservar-formulario select option {
+    background-color: #231f19;
+    color: #ebe1d8;
+}
+
+/* Mensajes del sistema. */
+.reservar-mensaje {
+    display: block;
+    color: #ffcf8b;
+    margin-top: 12px;
+}
+
+/* Contenedor de botones. */
+.reservar-botones {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
+
+/* Botón confirmar. */
+.btn-confirmar {
+    background-color: #e5b268;
+    border: 1px solid #e5b268;
+    color: #291800;
+    font-weight: 700;
+    padding: 12px 24px;
+}
+
+    .btn-confirmar:hover {
+        background-color: #ffcf8b;
+        border-color: #ffcf8b;
+        color: #291800;
+    }
+
+/* Botón volver. */
+.btn-volver {
+    background-color: transparent;
+    border: 1px solid #817567;
+    color: #ebe1d8;
+    padding: 12px 24px;
+}
+
+    .btn-volver:hover {
+        background-color: #514638;
+        border-color: #e5b268;
+        color: #ffcf8b;
+    }
+
+/* Adaptación a celulares. */
+@media (max-width: 767px) {
+
+    .reservar-pagina {
+        padding: 32px 16px;
+    }
+
+    .reservar-formulario {
+        padding: 24px;
+    }
+
+        .reservar-formulario h1 {
+            font-size: 30px;
+        }
+
+    .reservar-botones {
+        flex-direction: column;
+    }
+
+        .reservar-botones .btn {
+            width: 100%;
+        }
+}body {
+}
