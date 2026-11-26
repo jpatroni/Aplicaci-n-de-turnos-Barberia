@@ -16,21 +16,22 @@ namespace Aplicación_de_turnos_Barberia
         {
             if (!IsPostBack)
             {
-
-                //No puede acceder a esta página si no hay un cliente en sesión.
+                // Verificar que haya un cliente en sesión.
                 if (Session["Cliente"] == null)
                 {
                     Response.Redirect("~/Ingresar.aspx");
                     return;
                 }
 
-                //Cargar los barberos y servicios en los dropdownlists.
+                // Cargar barberos y servicios.
                 CargarBarberos();
                 CargarServicios();
+
+                // Recuperar el servicio seleccionado desde Servicios.aspx.
                 if (Session["IdServicio"] != null)
-                {   // Si hay un servicio seleccionado en la página de servicios, lo seleccionamos en el dropdownlist.
+                {
                     int idServicio = (int)Session["IdServicio"];
-                    // Seleccionamos el servicio en el dropdownlist.
+
                     ListItem item = ddlServicio.Items.FindByValue(
                         idServicio.ToString()
                     );
@@ -39,20 +40,19 @@ namespace Aplicación_de_turnos_Barberia
                     {
                         ddlServicio.SelectedValue = idServicio.ToString();
 
-                        // Bloqueamos la selección.
+                        // Bloquear la selección del servicio.
                         ddlServicio.Enabled = false;
                     }
-                    else
-                    {   // Si no encontramos el servicio, lo quitamos de la sesión.
-                        // Puede pasar si el servicio fue eliminado de la base de datos.
-                        Session.Remove("IdServicio");
-                    }
 
-                    // Habilitar el botón de confirmar turno solo si hay un cliente en sesión.
-                    btnConfirmarTurno.Enabled = Session["Cliente"] != null;
+                    // Evitar reutilizar la selección en futuros ingresos.
+                    Session.Remove("IdServicio");
                 }
+
+                // Habilitar el botón de confirmar.
+                btnConfirmarTurno.Enabled = true;
             }
         }
+
         private void CargarBarberos()
         {
             BarberoDatos datos = new BarberoDatos();
