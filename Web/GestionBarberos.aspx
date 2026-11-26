@@ -6,6 +6,18 @@
 
 <asp:Content ID="Content1"
     ContentPlaceHolderID="head" runat="server">
+    <script>
+        function validarPesoFotoBarbero() {
+            var campo = document.getElementById('<%= fuFoto.ClientID %>');
+            if (campo && campo.files && campo.files.length && campo.files[0].size > 15 * 1024 * 1024) {
+                var mensaje = document.getElementById('<%= lblMensaje.ClientID %>');
+                mensaje.textContent = 'La foto supera los 15 MB. Elegí una imagen más pequeña.';
+                mensaje.className = 'd-block alert alert-info mb-3';
+                return false;
+            }
+            return true;
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2"
@@ -137,7 +149,7 @@
                                 ID="hfFotoActual"
                                 runat="server" />
 
-                            <small class="text-muted">Seleccioná una imagen JPG o PNG (máximo 3 MB).
+                            <small class="text-muted">Seleccioná una imagen JPG o PNG (máximo 15 MB).
                             </small>
 
                             <div class="mt-2">
@@ -169,13 +181,13 @@
                             runat="server"
                             Text="Guardar barbero"
                             CssClass="btn btn-success"
-                            OnClick="btnAlta_Click" />
+                            OnClick="btnAlta_Click" OnClientClick="return validarPesoFotoBarbero();" />
 
                         <asp:Button ID="btnModificacion"
                             runat="server"
                             Text="Guardar cambios"
                             CssClass="btn btn-primary"
-                            OnClick="btnModificacion_Click"
+                            OnClick="btnModificacion_Click" OnClientClick="return validarPesoFotoBarbero();"
                             Visible="false" />
 
                         <asp:Button ID="btnBaja"

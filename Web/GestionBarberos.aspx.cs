@@ -111,7 +111,9 @@ namespace Aplicación_de_turnos_Barberia
             if (!ValidarCampos())
                 return;
 
-            Barbero barbero = ObtenerDatosFormulario();
+            Barbero barbero;
+            if (!IntentarLeerFormulario(out barbero))
+                return;
             BarberoDatos datos = new BarberoDatos();
 
             if (ExisteDuplicado(barbero.Nombre,
@@ -147,7 +149,9 @@ namespace Aplicación_de_turnos_Barberia
             if (!ValidarCampos())
                 return;
 
-            Barbero barbero = ObtenerDatosFormulario();
+            Barbero barbero;
+            if (!IntentarLeerFormulario(out barbero))
+                return;
             barbero.Id = id;
 
             BarberoDatos datos = new BarberoDatos();
@@ -244,6 +248,31 @@ namespace Aplicación_de_turnos_Barberia
         }
 
         
+        // Convierte los errores de carga en avisos sin interrumpir la página.
+        private bool IntentarLeerFormulario(out Barbero barbero)
+        {
+            barbero = null;
+            try
+            {
+                barbero = ObtenerDatosFormulario();
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                MostrarMensaje(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                Trace.Warn("FotoBarbero", "No se pudo guardar la imagen.", ex);
+                MostrarMensaje("No se pudo guardar la foto. Volvé a seleccionarla e intentá nuevamente.");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Trace.Warn("FotoBarbero", "Sin permiso para guardar imágenes.", ex);
+                MostrarMensaje("No se pudo guardar la foto por un problema de permisos.");
+            }
+            return false;
+        }
         private Barbero ObtenerDatosFormulario()
         {
             return new Barbero
@@ -302,11 +331,11 @@ namespace Aplicación_de_turnos_Barberia
             if (!fuFoto.HasFile)
                 return fotoActual;
 
-            const int maxBytes = 3 * 1024 * 1024;
+            const int maxBytes = 15 * 1024 * 1024;
 
             if (fuFoto.PostedFile.ContentLength > maxBytes ||
                 fuFoto.PostedFile.ContentLength == 0)
-                throw new Exception("La foto debe pesar menos de 3 MB.");
+                throw new ArgumentException("La foto debe pesar entre 1 byte y 15 MB.");
 
             string extension = Path.GetExtension(fuFoto.FileName)
                 .ToLowerInvariant();
@@ -314,14 +343,21 @@ namespace Aplicación_de_turnos_Barberia
             if (extension != ".jpg" &&
                 extension != ".jpeg" &&
                 extension != ".png")
-                throw new Exception("Solo se permiten imágenes JPG o PNG.");
+                throw new ArgumentException("Solo se permiten imágenes JPG o PNG.");
 
             byte[] firma = new byte[8];
 
-            using (Stream archivo = fuFoto.PostedFile.InputStream)
+            Stream archivo = fuFoto.PostedFile.InputStream;
+            long posicion = archivo.Position;
+            try
             {
                 if (archivo.Read(firma, 0, firma.Length) < firma.Length)
-                    throw new Exception("El archivo no es una imagen válida.");
+                    throw new ArgumentException("El archivo no es una imagen válida.");
+            }
+
+            finally
+            {
+                archivo.Position = posicion;
             }
 
             bool jpeg = firma[0] == 0xFF &&
@@ -340,7 +376,7 @@ namespace Aplicación_de_turnos_Barberia
             if ((!jpeg && !png) ||
                 (extension == ".png" && !png) ||
                 (extension != ".png" && !jpeg))
-                throw new Exception("El archivo no es una imagen JPG o PNG válida.");
+                throw new ArgumentException("El archivo no es una imagen JPG o PNG válida.");
 
             string carpeta = Server.MapPath("~/Imagenes/Barberos/");
             Directory.CreateDirectory(carpeta);
