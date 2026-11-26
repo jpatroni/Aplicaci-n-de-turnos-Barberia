@@ -87,6 +87,7 @@
     <Content Include="Content\servicios.css" />
     <Content Include="Content\gestion-servicios.css" />
     <Content Include="Imagenes\arreglo-barba.jpg" />
+    <Content Include="Imagenes\corte-de-barba.jpg" />
     <Content Include="Imagenes\corte-barba.jpg" />
     <Content Include="Imagenes\login-barberia.png" />
     <Content Include="Imagenes\corte-pelo.jpg" />

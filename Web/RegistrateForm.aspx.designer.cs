@@ -122,6 +122,8 @@ namespace Aplicación_de_turnos_Barberia
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegistrar;
 
+        protected global::System.Web.UI.WebControls.Label lblErrorRegistro;
+
         /// <summary>
         /// Control btnCancelar.
         /// </summary>

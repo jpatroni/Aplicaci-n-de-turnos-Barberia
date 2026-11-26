@@ -134,5 +134,19 @@
         .reservar-botones .btn {
             width: 100%;
         }
-}body {
+}
+
+.reservar-ayuda {
+    display: block;
+    color: #c8bbae;
+    margin-top: 8px;
+}
+
+.reservar-error {
+    color: #ffb4ab;
+}
+
+.reservar-formulario .btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
 }

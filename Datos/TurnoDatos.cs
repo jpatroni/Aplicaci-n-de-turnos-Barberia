@@ -142,104 +142,37 @@ namespace Datos
         public bool GuardarTurno(int clienteId, int barberoId,
             int servicioId, DateTime fechaHora)
         {
-            if (fechaHora <= DateTime.Now)
+            if (clienteId <= 0 || barberoId <= 0 || servicioId <= 0
+                || fechaHora <= DateTime.Now)
                 return false;
 
-            string cadena = ConfigurationManager
-                .ConnectionStrings["BarberiaDB"].ConnectionString;
-
-            using (SqlConnection conexion = new SqlConnection(cadena))
+            using (var conexion = ConexionDatos.CrearConexion())
             {
                 conexion.Open();
-
-                using (SqlTransaction transaccion =
-                    conexion.BeginTransaction(IsolationLevel.Serializable))
+                using (var transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
                 {
                     try
                     {
-                        // duracion del servicio
-                        string sqlDuracion = @"
-                    SELECT DuracionMinutos
-                    FROM dbo.Servicios
-                    WHERE Id = @ServicioId AND Activo = 1";
-
-                        int duracion;
-
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlDuracion, conexion, transaccion))
-                        {
-                            comando.Parameters.Add("@ServicioId", SqlDbType.Int)
-                                .Value = servicioId;
-
-                            object resultado = comando.ExecuteScalar();
-
-                            if (resultado == null)
-                            {
-                                transaccion.Rollback();
-                                return false;
-                            }
-
-                            duracion = Convert.ToInt32(resultado);
-                        }
-
-                        DateTime fin = fechaHora.AddMinutes(duracion);
-
-                        // horario de apertura y cierre
-                        if (!EsHorarioValido(fechaHora, fin, duracion))
+                        if (!ParticipantesActivos(conexion, transaccion, clienteId, barberoId))
                         {
                             transaccion.Rollback();
                             return false;
                         }
 
-                       
-                        string sqlOcupado = @"
-                    SELECT COUNT(*)
-                    FROM dbo.Turnos t WITH (UPDLOCK, HOLDLOCK)
-                    INNER JOIN dbo.Servicios s
-                        ON t.ServicioId = s.Id
-                    WHERE t.BarberoId = @BarberoId
-                      AND t.Estado IN ('Confirmado')
-                      AND t.FechaHora < @Fin
-                      AND DATEADD(MINUTE, s.DuracionMinutos, t.FechaHora)
-                          > @Inicio";
+                        int duracion = ObtenerDuracionServicioActivo(conexion, transaccion, servicioId);
+                        DateTime fin = fechaHora.AddMinutes(duracion);
 
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlOcupado, conexion, transaccion))
+                        if (!EsHorarioValido(fechaHora, fin, duracion)
+                            || ExisteSuperposicion(conexion, transaccion, 0, barberoId, fechaHora, fin))
                         {
-                            comando.Parameters.Add("@BarberoId", SqlDbType.Int)
-                                .Value = barberoId;
-                            comando.Parameters.Add("@Inicio", SqlDbType.DateTime2)
-                                .Value = fechaHora;
-                            comando.Parameters.Add("@Fin", SqlDbType.DateTime2)
-                                .Value = fin;
-
-                            if ((int)comando.ExecuteScalar() > 0)
-                            {
-                                transaccion.Rollback();
-                                return false;
-                            }
+                            transaccion.Rollback();
+                            return false;
                         }
-                                                
-                        string sqlInsertar = @"
-                    INSERT INTO dbo.Turnos
-                        (ClienteId, BarberoId, ServicioId, FechaHora, Estado)
-                    VALUES
-                        (@ClienteId, @BarberoId, @ServicioId,
-                         @FechaHora, 'Confirmado')";
 
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlInsertar, conexion, transaccion))
+                        if (!InsertarTurno(conexion, transaccion, clienteId, barberoId, servicioId, fechaHora))
                         {
-                            comando.Parameters.Add("@ClienteId", SqlDbType.Int)
-                                .Value = clienteId;
-                            comando.Parameters.Add("@BarberoId", SqlDbType.Int)
-                                .Value = barberoId;
-                            comando.Parameters.Add("@ServicioId", SqlDbType.Int)
-                                .Value = servicioId;
-                            comando.Parameters.Add("@FechaHora", SqlDbType.DateTime2)
-                                .Value = fechaHora;
-
-                            comando.ExecuteNonQuery();
+                            transaccion.Rollback();
+                            return false;
                         }
 
                         transaccion.Commit();
@@ -251,6 +184,62 @@ namespace Datos
                         throw;
                     }
                 }
+            }
+        }
+
+        // Duración del servicio: cero significa que ya no existe o está inactivo.
+        private int ObtenerDuracionServicioActivo(
+            SqlConnection conexion, SqlTransaction transaccion, int servicioId)
+        {
+            const string sql = @"
+                SELECT DuracionMinutos FROM dbo.Servicios
+                WHERE Id = @ServicioId AND Activo = 1;";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@ServicioId", SqlDbType.Int).Value = servicioId;
+                object resultado = comando.ExecuteScalar();
+                return resultado == null ? 0 : Convert.ToInt32(resultado);
+            }
+        }
+
+        // Solo escribe la reserva; el método principal decide si confirma la transacción.
+        private bool InsertarTurno(
+            SqlConnection conexion, SqlTransaction transaccion,
+            int clienteId, int barberoId, int servicioId, DateTime fechaHora)
+        {
+            const string sql = @"
+                INSERT INTO dbo.Turnos (ClienteId, BarberoId, ServicioId, FechaHora, Estado)
+                VALUES (@ClienteId, @BarberoId, @ServicioId, @FechaHora, 'Confirmado');";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@ClienteId", SqlDbType.Int).Value = clienteId;
+                comando.Parameters.Add("@BarberoId", SqlDbType.Int).Value = barberoId;
+                comando.Parameters.Add("@ServicioId", SqlDbType.Int).Value = servicioId;
+                comando.Parameters.Add("@FechaHora", SqlDbType.DateTime2).Value = fechaHora;
+                return comando.ExecuteNonQuery() == 1;
+            }
+        }
+
+        // Se comprueba dentro de la misma transacción que guarda la reserva.
+        private bool ParticipantesActivos(
+            SqlConnection conexion, SqlTransaction transaccion, int clienteId, int barberoId)
+        {
+            const string sql = @"
+                SELECT CASE WHEN EXISTS (
+                    SELECT 1 FROM dbo.Clientes WITH (UPDLOCK, HOLDLOCK)
+                    WHERE Id = @ClienteId AND Activo = 1
+                ) AND EXISTS (
+                    SELECT 1 FROM dbo.Barberos WITH (UPDLOCK, HOLDLOCK)
+                    WHERE Id = @BarberoId AND Activo = 1
+                ) THEN 1 ELSE 0 END;";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@ClienteId", SqlDbType.Int).Value = clienteId;
+                comando.Parameters.Add("@BarberoId", SqlDbType.Int).Value = barberoId;
+                return (int)comando.ExecuteScalar() == 1;
             }
         }
 
@@ -410,16 +399,7 @@ namespace Datos
         private bool EsHorarioValido(
             DateTime inicio, DateTime fin, int duracion)
         {
-            return duracion > 0
-
-                    && inicio.DayOfWeek != DayOfWeek.Sunday
-    && inicio.DayOfWeek != DayOfWeek.Monday
-                && inicio.TimeOfDay >= TimeSpan.FromHours(9)
-                && fin.Date == inicio.Date
-                && fin.TimeOfDay <= TimeSpan.FromHours(21)
-                && inicio.Minute % 30 == 0
-                && inicio.Second == 0
-                && inicio.Millisecond == 0;
+            return ReglasTurno.EsHorarioValido(inicio, fin, duracion);
         }
 
 

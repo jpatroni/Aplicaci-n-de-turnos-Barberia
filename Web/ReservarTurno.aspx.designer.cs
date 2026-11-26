@@ -95,6 +95,8 @@ namespace Aplicación_de_turnos_Barberia
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMensaje;
 
+        protected global::System.Web.UI.WebControls.Button btnConsultarHorarios;
+
         /// <summary>
         /// Control btnConfirmarTurno.
         /// </summary>

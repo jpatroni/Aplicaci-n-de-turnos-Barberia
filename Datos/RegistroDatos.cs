@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Datos.Infraestructura;
 
 namespace Datos
 {
@@ -12,16 +13,10 @@ namespace Datos
         // Organiza el registro completo.
         public int RegistrarCliente(Cliente cliente, string passwordHash)
         {
-            // Busca en Web.config dónde está la base de datos.
-            var configuracion = ConfigurationManager.ConnectionStrings["BarberiaDB"];
+            ValidarRegistro(cliente, passwordHash);
 
-            if (configuracion == null)
-            {
-                throw new ConfigurationErrorsException(
-                    "Falta configurar la conexión BarberiaDB.");
-            }
-
-            using (var conexion = new SqlConnection(configuracion.ConnectionString))
+            // Busca en Web.config dónde está la base de datos mediante Infraestructura.
+            using (var conexion = ConexionDatos.CrearConexion())
             {
                 conexion.Open();
 
@@ -38,6 +33,17 @@ namespace Datos
 
                 }
             }
+        }
+
+        // Protege también las llamadas que no vengan del formulario web.
+        private void ValidarRegistro(Cliente cliente, string passwordHash)
+        {
+            string error = ReglasRegistro.ValidarCliente(cliente);
+            if (!string.IsNullOrEmpty(error))
+                throw new ArgumentException(error, nameof(cliente));
+
+            if (string.IsNullOrWhiteSpace(passwordHash) || passwordHash.Length > 255)
+                throw new ArgumentException("La contraseña no se pudo preparar.", nameof(passwordHash));
         }
 
         // Hace una tarea puntual: guardar la ficha.

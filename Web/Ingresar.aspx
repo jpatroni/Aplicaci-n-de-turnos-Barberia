@@ -48,7 +48,7 @@
                         CssClass="form-control" />
 
                     <small class="form-text text-muted">
-                        La contraseña predeterminada es tu número de teléfono.
+                        Usá la contraseña que elegiste al registrarte.
                     </small>
                 </div>
 
@@ -70,6 +70,7 @@
                         ID="btnCancelar"
                         runat="server"
                         Text="Cancelar"
+                        OnClick="btnVolver_Click"
                         CssClass="btn btn-secondary"
                         CausesValidation="false" />
 
@@ -77,6 +78,7 @@
                         ID="btnAtras"
                         runat="server"
                         Text="Atrás"
+                        OnClick="btnVolver_Click"
                         CssClass="btn btn-outline-dark"
                         CausesValidation="false" />
                 </div>
