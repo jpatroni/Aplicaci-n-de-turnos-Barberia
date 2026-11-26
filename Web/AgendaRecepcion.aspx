@@ -49,7 +49,8 @@
         OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
         AutoGenerateColumns ="False"
         CssClass="table table-striped mt-3"
-        EmptyDataText="No hay turnos para esta fecha">
+        EmptyDataText="No hay turnos para esta fecha"
+        OnRowCommand="dgvTurnos_RowCommand">
         
        <Columns>
             <asp:BoundField DataField="Hora" HeaderText="Hora" />
@@ -62,6 +63,17 @@
                HeaderText="Reprogramar"
                ShowSelectButton="true"
                SelectText="Seleccionar" />
+
+           <asp:TemplateField HeaderText="Cancelar">
+    <ItemTemplate>
+        <asp:LinkButton ID="btnCancelarTurno" runat="server"
+            Text="Cancelar turno"
+            CausesValidation="false"
+            OnClientClick="return confirm('¿Querés cancelar esta reserva?');"
+            CommandName="CancelarReserva"
+CommandArgument='<%# Eval("Id") %>'/>
+    </ItemTemplate>
+</asp:TemplateField>
 
        </Columns>
 

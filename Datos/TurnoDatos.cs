@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Datos.Infraestructura;
 
 namespace Datos
 {
@@ -360,15 +361,131 @@ namespace Datos
             }
         }
 
+
+
+        // la busqueda de los datos necesarios para reprogramar una reserva.
+        private bool BuscarTurnoParaReprogramar(
+            SqlConnection conexion,
+            SqlTransaction transaccion,
+            int turnoId,
+            out int barberoId,
+            out int duracion)
+        {
+            barberoId = 0;
+            duracion = 0;
+
+            const string sql = @"
+        SELECT t.BarberoId, s.DuracionMinutos
+        FROM dbo.Turnos t WITH (UPDLOCK, HOLDLOCK)
+        INNER JOIN dbo.Servicios s ON t.ServicioId = s.Id
+        WHERE t.Id = @TurnoId
+          AND t.Estado = 'Confirmado'
+          AND t.FechaHora > GETDATE();";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@TurnoId", SqlDbType.Int).Value = turnoId;
+
+                using (var lector = comando.ExecuteReader())
+                {
+                    if (!lector.Read())
+                    {
+                        return false;
+                    }
+
+                    barberoId = (int)lector["BarberoId"];
+                    duracion = (int)lector["DuracionMinutos"];
+
+                    return true;
+                }
+            }
+        }
+
+
+        // duraciones y eso
+        private bool EsHorarioValido(
+            DateTime inicio, DateTime fin, int duracion)
+        {
+            return duracion > 0
+                && inicio.TimeOfDay >= TimeSpan.FromHours(9)
+                && fin.Date == inicio.Date
+                && fin.TimeOfDay <= TimeSpan.FromHours(20)
+                && inicio.Minute % 30 == 0
+                && inicio.Second == 0
+                && inicio.Millisecond == 0;
+        }
+
+
+        // para saber si el barbero esta ocupado 
+
+        // Comprueba si otra reserva ocupa parte del horario solicitado.
+        private bool ExisteSuperposicion(
+            SqlConnection conexion,
+            SqlTransaction transaccion,
+            int turnoId,
+            int barberoId,
+            DateTime inicio,
+            DateTime fin)
+        {
+            const string sql = @"
+        SELECT COUNT(*)
+        FROM dbo.Turnos t WITH (UPDLOCK, HOLDLOCK)
+        INNER JOIN dbo.Servicios s ON t.ServicioId = s.Id
+        WHERE t.BarberoId = @BarberoId
+          AND t.Id <> @TurnoId
+          AND t.Estado = 'Confirmado'
+          AND t.FechaHora < @Fin
+          AND DATEADD(MINUTE, s.DuracionMinutos, t.FechaHora) > @Inicio;";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@BarberoId", SqlDbType.Int).Value = barberoId;
+                comando.Parameters.Add("@TurnoId", SqlDbType.Int).Value = turnoId;
+                comando.Parameters.Add("@Inicio", SqlDbType.DateTime2).Value = inicio;
+                comando.Parameters.Add("@Fin", SqlDbType.DateTime2).Value = fin;
+
+                return (int)comando.ExecuteScalar() > 0;
+            }
+        }
+
+
+        // Actualiza la fecha y hora de una reserva confirmada.
+        private bool ActualizarFechaHora(
+            SqlConnection conexion,
+            SqlTransaction transaccion,
+            int turnoId,
+            DateTime nuevaFechaHora)
+        {
+            const string sql = @"
+        UPDATE dbo.Turnos
+        SET FechaHora = @NuevaFechaHora
+        WHERE Id = @TurnoId
+          AND Estado = 'Confirmado';";
+
+            using (var comando = new SqlCommand(sql, conexion, transaccion))
+            {
+                comando.Parameters.Add("@TurnoId", SqlDbType.Int).Value = turnoId;
+                comando.Parameters.Add("@NuevaFechaHora", SqlDbType.DateTime2)
+                    .Value = nuevaFechaHora;
+
+                return comando.ExecuteNonQuery() == 1;
+            }
+        }
+
+
+
+        /// metodo principal 
+        /// Buscar el turno.
+      //  Validar el horario.
+       // Comprobar disponibilidad.
+       // Actualizar la fecha.
+//Confirmar la transacción si todo salió bien.
         public bool ReprogramarTurno(int turnoId, DateTime nuevaFechaHora)
         {
             if (nuevaFechaHora <= DateTime.Now)
                 return false;
 
-            string cadena = ConfigurationManager
-                .ConnectionStrings["BarberiaDB"].ConnectionString;
-
-            using (SqlConnection conexion = new SqlConnection(cadena))
+            using (SqlConnection conexion = ConexionDatos.CrearConexion())
             {
                 conexion.Open();
 
@@ -377,103 +494,43 @@ namespace Datos
                 {
                     try
                     {
-                        string sqlTurno = @"
-                    SELECT t.BarberoId, s.DuracionMinutos
-                    FROM dbo.Turnos t WITH (UPDLOCK, HOLDLOCK)
-                    INNER JOIN dbo.Servicios s
-                        ON t.ServicioId = s.Id
-                    WHERE t.Id = @TurnoId
-                      AND t.Estado = 'Confirmado'
-                      AND t.FechaHora > GETDATE()";
 
                         int barberoId;
                         int duracion;
 
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlTurno, conexion, transaccion))
-                        {
-                            comando.Parameters.Add("@TurnoId", SqlDbType.Int)
-                                .Value = turnoId;
+                        // Busca los datos del turno y cierra el lector antes de regresar.
+                        bool encontrado = BuscarTurnoParaReprogramar(
+                            conexion, transaccion, turnoId,
+                            out barberoId, out duracion);
 
-                            using (SqlDataReader lector = comando.ExecuteReader())
-                            {
-                                if (!lector.Read())
-                                {
-                                    transaccion.Rollback();
-                                    return false;
-                                }
-
-                                barberoId = (int)lector["BarberoId"];
-                                duracion = (int)lector["DuracionMinutos"];
-                            }
-                        }
-
-                        DateTime fin = nuevaFechaHora.AddMinutes(duracion);
-
-                        if (duracion <= 0 ||
-                            nuevaFechaHora.TimeOfDay < TimeSpan.FromHours(9) ||
-                            fin.Date != nuevaFechaHora.Date ||
-                            fin.TimeOfDay > TimeSpan.FromHours(20) ||
-                            nuevaFechaHora.Minute % 30 != 0 ||
-                            nuevaFechaHora.Second != 0 ||
-                            nuevaFechaHora.Millisecond != 0)
+                        if (!encontrado)
                         {
                             transaccion.Rollback();
                             return false;
                         }
 
-                        string sqlOcupado = @"
-                    SELECT COUNT(*)
-                    FROM dbo.Turnos t WITH (UPDLOCK, HOLDLOCK)
-                    INNER JOIN dbo.Servicios s
-                        ON t.ServicioId = s.Id
-                    WHERE t.BarberoId = @BarberoId
-                      AND t.Id <> @TurnoId
-                      AND t.Estado = 'Confirmado'
-                      AND t.FechaHora < @Fin
-                      AND DATEADD(MINUTE, s.DuracionMinutos,
-                          t.FechaHora) > @Inicio";
 
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlOcupado, conexion, transaccion))
+                        DateTime fin = nuevaFechaHora.AddMinutes(duracion);
+                        if (!EsHorarioValido(nuevaFechaHora, fin, duracion))
                         {
-                            comando.Parameters.Add("@BarberoId", SqlDbType.Int)
-                                .Value = barberoId;
-                            comando.Parameters.Add("@TurnoId", SqlDbType.Int)
-                                .Value = turnoId;
-                            comando.Parameters.Add("@Inicio", SqlDbType.DateTime2)
-                                .Value = nuevaFechaHora;
-                            comando.Parameters.Add("@Fin", SqlDbType.DateTime2)
-                                .Value = fin;
-
-                            if ((int)comando.ExecuteScalar() > 0)
-                            {
-                                transaccion.Rollback();
-                                return false;
-                            }
+                            transaccion.Rollback();
+                            return false;
                         }
-
-                        string sqlActualizar = @"
-                    UPDATE dbo.Turnos
-                    SET FechaHora = @NuevaFechaHora
-                    WHERE Id = @TurnoId
-                      AND Estado = 'Confirmado'";
-
-                        using (SqlCommand comando =
-                            new SqlCommand(sqlActualizar, conexion, transaccion))
+                        // Si el barbero está ocupado, conserva la reserva original.
+                        if (ExisteSuperposicion(
+                            conexion, transaccion, turnoId,
+                            barberoId, nuevaFechaHora, fin))
                         {
-                            comando.Parameters.Add("@TurnoId", SqlDbType.Int)
-                                .Value = turnoId;
-                            comando.Parameters.Add("@NuevaFechaHora", SqlDbType.DateTime2)
-                                .Value = nuevaFechaHora;
-
-                            if (comando.ExecuteNonQuery() != 1)
-                            {
-                                transaccion.Rollback();
-                                return false;
-                            }
+                            transaccion.Rollback();
+                            return false;
                         }
-
+                        // Intenta actualizar la reserva dentro de la misma transacción.
+                        if (!ActualizarFechaHora(
+                            conexion, transaccion, turnoId, nuevaFechaHora))
+                        {
+                            transaccion.Rollback();
+                            return false;
+                        }
                         transaccion.Commit();
                         return true;
                     }
@@ -483,6 +540,7 @@ namespace Datos
                         throw;
                     }
                 }
+              
             }
         }
 

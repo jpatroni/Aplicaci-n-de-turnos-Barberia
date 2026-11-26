@@ -43,6 +43,7 @@
              <asp:BoundField DataField="Email" HeaderText="Email" />
              <asp:CheckBoxField DataField="Activo" HeaderText="Activo" />
              <asp:CommandField ShowSelectButton="True" SelectText="Editar" />
+
          </Columns>
          </asp:GridView>
          <asp:Label ID="lblMensajeRecepcion" runat="server" CssClass="text-danger" />

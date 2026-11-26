@@ -8,6 +8,7 @@ using Dominio;
 using System.Globalization;
 using Datos;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 
 namespace Aplicación_de_turnos_Barberia
@@ -102,6 +103,48 @@ namespace Aplicación_de_turnos_Barberia
 
         }
 
+        // Intenta cancelar la reserva y comunica el resultado.
+        private void CancelarReserva(int turnoId)
+        {
+            try
+            {
+                TurnoDatos datos = new TurnoDatos();
+                bool cancelado = datos.CancelarTurno(turnoId);
+
+                if (cancelado)
+                {
+                    MostrarAgenda(txtBuscarTurno.Text);
+                }
+
+                lblMensajeAgenda.Text = cancelado
+                    ? "El turno se canceló correctamente."
+                    : "No se pudo cancelar el turno.";
+            }
+            catch (SqlException)
+            {
+                lblMensajeAgenda.Text =
+                    "Ocurrió un error al cancelar. Volvé a consultar la agenda para verificar el estado.";
+            }
+        }
+
+
+
+
+        protected void dgvTurnos_RowCommand(
+        object sender, GridViewCommandEventArgs e)
+        {
+            // Solo atiende la acción de cancelar una reserva.
+            if (e.CommandName != "CancelarReserva")
+            {
+                return;
+            }
+
+            int turnoId = Convert.ToInt32(e.CommandArgument);
+
+            CancelarReserva(turnoId);
+        }
+
+
         public string ValidarReprogramacion(out DateTime nuevaFechaHora)
         {
             nuevaFechaHora = DateTime.MinValue;
@@ -135,13 +178,19 @@ namespace Aplicación_de_turnos_Barberia
 
         }
 
-        protected void btnCancelarEdicion_Click(object sender, EventArgs e)
+        // Cierra la edición y elimina la selección anterior.
+        private void CerrarEdicion()
         {
             pnlReprogramacion.Visible = false;
             dgvTurnos.SelectedIndex = -1;
-
             lblTurnoSeleccionado.Text = string.Empty;
             lblMensajeReprogramacion.Text = string.Empty;
+        }
+
+
+        protected void btnCancelarEdicion_Click(object sender, EventArgs e)
+        {
+            CerrarEdicion();
         }
 
 
@@ -164,7 +213,11 @@ namespace Aplicación_de_turnos_Barberia
                 // Actualiza la agenda únicamente si se guardó el cambio.
                 if (guardado)
                 {
+                    CerrarEdicion();
                     MostrarAgenda(txtBuscarTurno.Text);
+
+                    lblMensajeAgenda.Text =
+                        "El turno se reprogramó correctamente.";
                 }
 
             }
