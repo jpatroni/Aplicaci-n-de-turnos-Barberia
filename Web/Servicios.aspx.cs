@@ -43,10 +43,7 @@ namespace Aplicación_de_turnos_Barberia
             rptServicios.DataSource = servicios;
             rptServicios.DataBind();
 
-            // Conservamos temporalmente la tabla mientras armamos las tarjetas.
-            dgvServicios.DataSource = servicios;
-            dgvServicios.DataBind();
-        }
+           }
 
         // Guarda el servicio elegido y abre la pantalla de reserva.
         private void SeleccionarServicio(object argumento)
