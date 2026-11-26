@@ -82,6 +82,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Administracion.aspx" />
+    <Content Include="Content\login.css" />
+    <Content Include="Imagenes\login-barberia.png" />
     <Content Include="GestionBarberos.aspx" />
     <Content Include="GestionServicios.aspx" />
     <Content Include="Global.asax" />

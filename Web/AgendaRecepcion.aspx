@@ -59,10 +59,15 @@
         <asp:BoundField DataField="Servicio" HeaderText="Servicio" />
         <asp:BoundField DataField="Estado" HeaderText="Estado" />
 
-           <asp:CommandField
-               HeaderText="Reprogramar"
-               ShowSelectButton="true"
-               SelectText="Seleccionar" />
+          <asp:TemplateField HeaderText="Reprogramar">
+    <ItemTemplate>
+        <asp:LinkButton ID="btnSeleccionarTurno" runat="server"
+            Text="Seleccionar"
+            CommandName="Select"
+            CausesValidation="false"
+            Visible='<%# Eval("PuedeModificar") %>' />
+    </ItemTemplate>
+</asp:TemplateField>
 
            <asp:TemplateField HeaderText="Cancelar">
     <ItemTemplate>
@@ -71,7 +76,8 @@
             CausesValidation="false"
             OnClientClick="return confirm('¿Querés cancelar esta reserva?');"
             CommandName="CancelarReserva"
-CommandArgument='<%# Eval("Id") %>'/>
+CommandArgument='<%# Eval("Id") %>'
+            Visible='<%# Eval("PuedeModificar") %>'/>
     </ItemTemplate>
 </asp:TemplateField>
 

@@ -197,3 +197,57 @@ img {
         background-color: #fed488;
         color: #1c1b1b;
     }
+
+/* Mantiene el pie al final de la pantalla en páginas cortas. */
+body > #form1 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > #form1 > main {
+    flex: 1;
+}
+
+/* Pie de contacto compartido por las páginas de la aplicación. */
+.pie-contacto {
+    background-color: #1c1b1b;
+    color: #ebe1d8;
+    border-top: 1px solid #49443c;
+    padding: 32px 0;
+}
+
+.pie-contacto-contenido,
+.pie-contacto-redes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.pie-contacto-contenido {
+    justify-content: space-between;
+}
+
+.pie-contacto h2 {
+    color: #e5b268;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    margin: 0 0 8px;
+}
+
+.pie-contacto p {
+    margin: 0;
+}
+
+.pie-contacto-red {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pie-contacto-red svg {
+    width: 24px;
+    height: 24px;
+    color: #e5b268;
+}

@@ -57,7 +57,16 @@ namespace Datos
                 throw new ArgumentException("La duración debe ser mayor a cero.");
 
             DateTime apertura = fecha.Date.AddHours(9);
-            DateTime cierre = fecha.Date.AddHours(20);
+            DateTime cierre = fecha.Date.AddHours(21);
+
+
+            // Comprueba si el servicio puede entrar en la jornada de ese día.
+            DateTime primerFin = apertura.AddMinutes(duracionMinutos);
+
+            if (!EsHorarioValido(apertura, primerFin, duracionMinutos))
+            {
+                return disponibles;
+            }
 
             List<Tuple<DateTime, int>> ocupados =
                 new List<Tuple<DateTime, int>>();
@@ -176,12 +185,7 @@ namespace Datos
                         DateTime fin = fechaHora.AddMinutes(duracion);
 
                         // horario de apertura y cierre
-                        if (duracion <= 0 ||
-                            fechaHora.TimeOfDay < TimeSpan.FromHours(9) ||
-                            fin.Date != fechaHora.Date ||
-                            fin.TimeOfDay > TimeSpan.FromHours(20) ||
-                            fechaHora.Minute % 30 != 0 ||
-                            fechaHora.Second != 0)
+                        if (!EsHorarioValido(fechaHora, fin, duracion))
                         {
                             transaccion.Rollback();
                             return false;
@@ -407,9 +411,12 @@ namespace Datos
             DateTime inicio, DateTime fin, int duracion)
         {
             return duracion > 0
+
+                    && inicio.DayOfWeek != DayOfWeek.Sunday
+    && inicio.DayOfWeek != DayOfWeek.Monday
                 && inicio.TimeOfDay >= TimeSpan.FromHours(9)
                 && fin.Date == inicio.Date
-                && fin.TimeOfDay <= TimeSpan.FromHours(20)
+                && fin.TimeOfDay <= TimeSpan.FromHours(21)
                 && inicio.Minute % 30 == 0
                 && inicio.Second == 0
                 && inicio.Millisecond == 0;

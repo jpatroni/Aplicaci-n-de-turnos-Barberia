@@ -14,7 +14,7 @@
     <link href="<%= ResolveUrl("~/Content/bootstrap.min.css") %>"
       rel="stylesheet" />
 
-<link href="<%= ResolveUrl("~/Content/estilos.css") %>"
+<link href="<%= ResolveUrl("~/Content/estilos.css") %>?v=<%= System.IO.File.GetLastWriteTimeUtc(Server.MapPath("~/Content/estilos.css")).Ticks %>"
       rel="stylesheet" />
 
     <!-- Espacio para contenido adicional de cada página -->
@@ -94,6 +94,34 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </main>
+
+        <!-- Contacto compartido: datos de muestra, sin enlaces. -->
+        <footer class="pie-contacto" aria-labelledby="tituloContacto">
+            <div class="container pie-contacto-contenido">
+                <div>
+                    <h2 id="tituloContacto">Contacto</h2>
+                    <p>Teléfono: 11 5555-0100</p>
+                </div>
+
+                <div class="pie-contacto-redes" aria-label="Redes sociales">
+                    <span class="pie-contacto-red">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.7A8.5 8.5 0 1 1 20.5 11.5Z" />
+                            <path d="m8.2 7.2 1.4 2.7-1 1.1a10 10 0 0 0 4.4 4.1l1-1.1 2.8 1.3c-.3 1.4-1.1 2-2.3 1.8-4.3-.7-7.9-4.2-8.2-7.5-.1-1.1.6-2 1.9-2.4Z" />
+                        </svg>
+                        WhatsApp
+                    </span>
+                    <span class="pie-contacto-red">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="5" />
+                            <circle cx="12" cy="12" r="4" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                        </svg>
+                        Instagram
+                    </span>
+                </div>
+            </div>
+        </footer>
 
     </form>
 

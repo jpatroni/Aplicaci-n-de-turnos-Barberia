@@ -113,6 +113,7 @@ namespace Aplicación_de_turnos_Barberia
 
                 if (cancelado)
                 {
+                    CerrarEdicion();
                     MostrarAgenda(txtBuscarTurno.Text);
                 }
 
@@ -311,10 +312,12 @@ namespace Aplicación_de_turnos_Barberia
                 Cliente = turno.Cliente.Nombre + " " + turno.Cliente.Apellido,
                 Barbero = turno.Barbero.Nombre + " " + turno.Barbero.Apellido,
                 Servicio  = turno.Servicio.Nombre,
-                Estado = turno.Estado.ToString()
+                    Estado = turno.Estado.ToString(),
+                    PuedeModificar = turno.Estado == EstadoTurno.Confirmado
+    && turno.FechaHora > DateTime.Now
 
 
-            }).ToList();
+                }).ToList();
             dgvTurnos.DataBind();
         }
 

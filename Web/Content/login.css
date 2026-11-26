@@ -1,0 +1,91 @@
+﻿/* Apariencia general de la pantalla de ingreso. */
+.login-pagina {
+    background-color: #17130e;
+    color: #ebe1d8;
+    min-height: 85vh;
+    padding: 64px 24px;
+}
+
+    /* Título del formulario. */
+    .login-pagina h2 {
+        color: #ffcf8b;
+        font-family: Georgia, serif;
+        font-size: 38px;
+    }
+
+
+/* Dos columnas en pantallas grandes. */
+.login-distribucion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* Foto y presentación de la barbería. */
+.login-presentacion {
+    padding: 40px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image:
+        linear-gradient(to top, rgb(23 19 14 / 95%), rgb(23 19 14 / 15%)),
+        url("../Imagenes/login-barberia.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+}
+
+.login-formulario {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* Una columna en celulares y pantallas pequeñas. */
+@media (max-width: 767px) {
+    .login-distribucion {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .login-presentacion {
+        padding: 24px;
+        min-height: 320px;
+    }
+}
+
+
+/* Campos de correo y contraseña. */
+.login-formulario .form-control {
+    background-color: #231f19;
+    color: #ebe1d8;
+    border: 1px solid #817567;
+    padding: 14px 16px;
+    border-radius: 6px;
+}
+
+    /* Resalta el campo cuando lo estás usando. */
+    .login-formulario .form-control:focus {
+        background-color: #231f19;
+        color: #ebe1d8;
+        border-color: #e5b268;
+        box-shadow: 0 0 0 3px rgb(229 178 104 / 20%);
+    }
+
+/* Botón principal de ingreso. */
+.login-formulario .btn-primary {
+    background-color: #e5b268;
+    border-color: #e5b268;
+    color: #291800;
+    font-weight: 700;
+    padding: 12px 24px;
+}
+
+    .login-formulario .btn-primary:hover {
+        background-color: #ffcf8b;
+        border-color: #ffcf8b;
+    }
